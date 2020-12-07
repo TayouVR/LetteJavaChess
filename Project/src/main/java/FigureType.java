@@ -2,9 +2,9 @@ public enum FigureType {
 
     KING,
     QUEEN,
-    ROOK,
-    BISHOP,
-    KNIGHT,
-    PAWN
+    ROOK,   // Turm
+    BISHOP, // Läufer
+    KNIGHT, // Pferd / Springer
+    PAWN    // Bauer
 
 }
