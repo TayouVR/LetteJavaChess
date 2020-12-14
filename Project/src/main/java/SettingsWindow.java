@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SettingsWindow {
 
@@ -41,4 +43,52 @@ public class SettingsWindow {
         window.setVisible(false);
         window.dispose();
     }
+
+
+    private void panels(){
+
+    JPanel graphicpanel = new JPanel();
+
+    String[] resolutionStrings = { "3840x2160", "1360x768", "1280x800", "Rabbit", "Pig" };
+
+
+    JComboBox resolutionList = new JComboBox(resolutionStrings);
+
+    resolutionList.setSelectedIndex(0);
+
+    resolutionList.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            JComboBox cb = (JComboBox)e.getSource();
+            String resolution = (String)cb.getSelectedItem();
+            String[] size = resolution.split("x");
+            window.setSize(Integer.getInteger (size[0]), Integer.getInteger(size[1]));
+
+        }
+    });
+
+    String[] skinStrings = {"Standard","Spaceships"};
+
+    JComboBox skinList = new JComboBox(skinStrings);
+
+    skinList.setSelectedIndex(0);
+
+        resolutionList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                JComboBox cb = (JComboBox)e.getSource();
+                String resolution = (String)cb.getSelectedItem();
+                window.set();
+
+            }
+        });
+
+    JPanel playerpanel = new JPanel();
+
+    JPanel AudioPanel = new JPanel();
+
+    }
+
 }
