@@ -16,7 +16,7 @@ public class SettingsWindow {
 
 	public SettingsWindow() {
 
-		JPanel tabs = new JPanel(new GridLayout(6, 0));
+		JPanel tabs = new JPanel(new GridLayout(12, 0));
 
 		// Initialize Tab buttons
 		JButton playerTabButton = new JButton("Player");
@@ -39,12 +39,15 @@ public class SettingsWindow {
 		tabs.add(audioTabButton);
 		tabs.add(closeButton);
 
+		tabs.setSize(300, window.getHeight());
+
 		window.add(tabs, BorderLayout.WEST);
 
 		playerSettings();
 
 		window.setTitle("Settings");
-		window.setSize(300, 500);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		window.setBounds(screenSize.width / 2 - 375, screenSize.height / 2 - 250, 750, 500);
 		window.setVisible(true);
 	}
 
@@ -54,10 +57,8 @@ public class SettingsWindow {
 	}
 
 	private void displayTab(JPanel panel) {
-		try {
+		if (selectedTabPanel != null) {
 			window.remove(selectedTabPanel);
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		selectedTabPanel = panel;
 		window.add(panel, BorderLayout.CENTER);
