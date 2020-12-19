@@ -8,18 +8,30 @@ public class SettingsWindow {
     JFrame window = new JFrame();
     Color selectedColor = Color.BLACK;
 
+    JPanel playerSettings;
+    JPanel graphicSettings;
+    JPanel audioSettings;
+
+    JPanel selectedTabPanel;
+
     public SettingsWindow() {
 
         JPanel tabs = new JPanel(new GridLayout(6, 0));
 
+        // Initialize Tab buttons
         JButton playerTabButton = new JButton("Player");
         JButton graphicsTabButton = new JButton("Graphics");
         JButton audioTabButton = new JButton("Audio");
         JButton closeButton = new JButton("Close");
 
-        //playerTabButton.addActionListener(e -> );
-        //graphicsTabButton.addActionListener(e -> );
-        //audioTabButton.addActionListener(e -> );
+        // Initialize Tabs
+        playerSettings = playerSettings();
+        graphicSettings = graphicsSettings();
+        audioSettings = audioSettings();
+
+        playerTabButton.addActionListener(e -> displayTab(playerSettings));
+        graphicsTabButton.addActionListener(e -> displayTab(graphicSettings));
+        audioTabButton.addActionListener(e -> displayTab(audioSettings));
         closeButton.addActionListener(e -> closeWindow());
 
         tabs.add(playerTabButton);
@@ -29,10 +41,7 @@ public class SettingsWindow {
 
         window.add(tabs, BorderLayout.WEST);
 
-        JButton colorButton = new JButton("Choose");
-        colorButton.addActionListener(e -> selectedColor = JColorChooser.showDialog(null, "Choose Preferred color", null));
-
-        window.add(colorButton);
+        playerSettings();
 
         window.setTitle("Settings");
         window.setSize(300, 500);
@@ -44,9 +53,30 @@ public class SettingsWindow {
         window.dispose();
     }
 
+    private void displayTab(JPanel panel) {
+        try {
+            window.remove(selectedTabPanel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        selectedTabPanel = panel;
+        window.add(panel, BorderLayout.CENTER);
+        window.revalidate();
+        window.repaint();
+    }
 
-    private void panels(){
+    private JPanel playerSettings() {
+        JPanel panel = new JPanel();
 
+        JButton colorButton = new JButton("Choose preferred color");
+        colorButton.addActionListener(e -> selectedColor = JColorChooser.showDialog(null, "Choose Preferred color", null));
+
+        panel.add(colorButton);
+
+        return panel;
+    }
+
+    private JPanel graphicsSettings() {
     JPanel graphicpanel = new JPanel();
 
     String[] resolutionStrings = { "3840x2160", "1360x768", "1280x800", "Rabbit", "Pig" };
@@ -84,11 +114,12 @@ public class SettingsWindow {
 
             }
         });
-
-    JPanel playerpanel = new JPanel();
-
-    JPanel AudioPanel = new JPanel();
-
+        return panel;
     }
 
+    private JPanel audioSettings() {
+        JPanel panel = new JPanel();
+
+        return panel;
+    }
 }
