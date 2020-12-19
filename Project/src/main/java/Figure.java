@@ -1,5 +1,5 @@
 public class Figure {
 
-    private FigureType type;
+	private FigureType type;
 
 }
