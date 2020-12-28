@@ -1,13 +1,25 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class UserInterfaceThread extends Thread {
+	
+	Client client;
 
 	JFrame window = new JFrame();
 	JPanel mainMenu;
+	JPanel chooseGameType;
 	JPanel preGame;
 	JPanel game;
-
+	
+	public UserInterfaceThread(Client client) {
+		this.client = client;
+	}
+	
 	/**
 	 * When Thread is started
 	 */
@@ -27,7 +39,7 @@ public class UserInterfaceThread extends Thread {
 		window.setTitle("Four Player Chess");
 		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		window.setSize(400, 300);
-		window.setExtendedState( window.getExtendedState()|JFrame.MAXIMIZED_BOTH );
+		setApplicationFullscreenMode(client.config.getFullscreenMode());
 		window.setVisible(true);
 	}
 
@@ -70,5 +82,34 @@ public class UserInterfaceThread extends Thread {
 		panel.add(Box.createHorizontalGlue());
 
 		return panel;
+	}
+	
+	public void setApplicationFullscreenMode (Config.FulllscreenMode mode) {
+		client.config.setFullscreenMode(mode);
+		System.out.println("Changed Fullscreen mode to " + mode);
+		
+		window.dispose();
+		switch (mode) {
+			case FULLSCREEN -> {
+				window.setUndecorated(true);
+				window.pack();
+				window.setExtendedState( window.getExtendedState()|JFrame.MAXIMIZED_BOTH );
+			}
+			case WINDOWED -> {
+				window.setUndecorated(false);
+				window.pack();
+				window.setExtendedState( JFrame.NORMAL );
+				Object[] res = client.config.getResolution();
+				window.setSize((int)res[0], (int)res[1]);
+			}
+			case MAXIMIZED -> {
+				window.setUndecorated(false);
+				window.pack();
+				window.setExtendedState( window.getExtendedState()|JFrame.MAXIMIZED_BOTH );
+				Object[] res = client.config.getResolution();
+				window.setSize((int)res[0], (int)res[1]);
+			}
+		}
+		window.setVisible(true);
 	}
 }

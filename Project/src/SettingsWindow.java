@@ -13,8 +13,11 @@ public class SettingsWindow {
 	JPanel audioSettings;
 
 	JPanel selectedTabPanel;
+	
+	UserInterfaceThread uiThread;
 
-	public SettingsWindow() {
+	public SettingsWindow(UserInterfaceThread uiThread) {
+		this.uiThread = uiThread;
 
 		JPanel tabs = new JPanel(new GridLayout(12, 0));
 
@@ -80,7 +83,7 @@ public class SettingsWindow {
 	private JPanel graphicsSettings() {
 		JPanel panel = new JPanel();
 
-		String[] resolutionStrings = { "3840x2160", "1360x768", "1280x800", "Rabbit", "Pig" };
+		String[] resolutionStrings = { "3840x2160", "1920x1080", "1600x1050", "1280x800", "1600x900", "1360x768", "1280x1024", "1024x768", "1200x720", "420x360" };
 
 
 		JComboBox resolutionList = new JComboBox(resolutionStrings);
@@ -90,12 +93,18 @@ public class SettingsWindow {
 		resolutionList.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				JComboBox cb = (JComboBox)e.getSource();
-				String resolution = (String)cb.getSelectedItem();
-				String[] size = resolution.split("x");
-				window.setSize(Integer.getInteger (size[0]), Integer.getInteger(size[1]));
-
+				if (uiThread.client.config.getFullscreenMode() != Config.FulllscreenMode.FULLSCREEN) {
+					
+					JComboBox cb = (JComboBox)e.getSource();
+					String resolution = (String)cb.getSelectedItem();
+					System.out.println(resolution);
+					String[] size = resolution.split("x", 2);
+					for (String s: size) {
+						System.out.println(s);
+					}
+					uiThread.window.setSize(Integer.parseInt(size[0]), Integer.parseInt(size[1]));
+					uiThread.client.config.SaveConfig();
+				}
 			}
 		});
 
@@ -104,17 +113,38 @@ public class SettingsWindow {
 		JComboBox skinList = new JComboBox(skinStrings);
 
 		skinList.setSelectedIndex(0);
-
-		resolutionList.addActionListener(new ActionListener() {
+		
+		skinList.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				JComboBox cb = (JComboBox)e.getSource();
 				String resolution = (String)cb.getSelectedItem();
 				//window.set();
+				uiThread.client.config.SaveConfig();
 
 			}
 		});
+		
+		JComboBox fullscreenModes = new JComboBox( Config.FulllscreenMode.values());
+		
+		fullscreenModes.setSelectedIndex(0);
+		
+		fullscreenModes.addActionListener(e -> {
+			
+			JComboBox cb = (JComboBox)e.getSource();
+			uiThread.setApplicationFullscreenMode(Config.FulllscreenMode.valueOf(cb.getSelectedIndex()));
+			window.requestFocusInWindow();
+			window.toFront();
+			window.repaint();
+			uiThread.client.config.SaveConfig();
+			
+		});
+		
+		panel.add(resolutionList);
+		panel.add(skinList);
+		panel.add(fullscreenModes);
+		
 		return panel;
 	}
 
