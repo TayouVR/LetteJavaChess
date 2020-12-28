@@ -32,6 +32,7 @@ public class UserInterfaceThread extends Thread {
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
+		chooseGameType = CreateChooseGameTypeScreen();
 
 		mainMenu = constructMainMenu();
 		window.add(mainMenu);
@@ -65,8 +66,12 @@ public class UserInterfaceThread extends Thread {
 		settingsButton.setPreferredSize(menuButtonSize);
 		exitButton.setPreferredSize(menuButtonSize);
 
-		//playButton.addActionListener(e -> );
-		settingsButton.addActionListener(e -> new SettingsWindow());
+		playButton.addActionListener(e -> {
+			window.setContentPane(chooseGameType);
+			window.revalidate();
+			window.repaint();
+		});
+		settingsButton.addActionListener(e -> new SettingsWindow(this));
 		exitButton.addActionListener(e -> System.exit(0));
 
 		mainMenu.add(playButton);
@@ -81,6 +86,72 @@ public class UserInterfaceThread extends Thread {
 		panel.add(mainMenu);
 		panel.add(Box.createHorizontalGlue());
 
+		return panel;
+	}
+	
+	public JPanel CreateChooseGameTypeScreen() {
+		JPanel panel = new JPanel();
+		BoxLayout boxLayout1 = new BoxLayout(panel, BoxLayout.Y_AXIS);
+		panel.setLayout(boxLayout1);
+		panel.add(Box.createVerticalGlue());
+		
+		JButton btn_localGame = new JButton("Start a local Game");
+		JButton btn_joinMultiplayerGame = new JButton("Join a multiplayer Game");
+		JButton btn_hostMultiplayerGame = new JButton("Host a multiplayer Game");
+		JButton btn_backToMainMenu = new JButton("Back");
+		
+		Dimension menuButtonSize = new Dimension(200, 50);
+		
+		panel.setPreferredSize(menuButtonSize);
+		btn_localGame.setPreferredSize(menuButtonSize);
+		btn_joinMultiplayerGame.setPreferredSize(menuButtonSize);
+		btn_hostMultiplayerGame.setPreferredSize(menuButtonSize);
+		btn_backToMainMenu.setPreferredSize(menuButtonSize);
+		
+		//btn_localGame.addActionListener(e -> );
+		//btn_joinMultiplayerGame.addActionListener(e -> new SettingsWindow(this));
+		//btn_hostMultiplayerGame.addActionListener(e -> System.exit(0));
+		btn_backToMainMenu.addActionListener(e -> {
+			window.setContentPane(mainMenu);
+			window.revalidate();
+			window.repaint();
+		});
+		
+		panel.add(btn_localGame);
+		panel.add(btn_joinMultiplayerGame);
+		panel.add(btn_hostMultiplayerGame);
+		panel.add(btn_backToMainMenu);
+		panel.add(Box.createVerticalGlue());
+		
+		JPanel panel2 = new JPanel();
+		BoxLayout boxLayout = new BoxLayout(panel2, BoxLayout.LINE_AXIS);
+		panel2.setLayout(boxLayout);
+		panel2.add(Box.createHorizontalGlue());
+		panel2.add(panel);
+		panel2.add(Box.createHorizontalGlue());
+		
+		return panel2;
+	}
+	
+	public JPanel CreateGameConfigScreen() {
+		JPanel panel = new JPanel();
+		
+		JComboBox playerCount = new JComboBox(new String[]{"1", "2", "3", "4"});
+		
+		//playerCount
+		
+		
+		
+		return panel;
+	}
+	
+	public JPanel CreatePlayFieldForPlayers(int playercount) {
+		JPanel panel = new JPanel();
+		
+		
+		
+		
+		
 		return panel;
 	}
 	
@@ -111,5 +182,41 @@ public class UserInterfaceThread extends Thread {
 			}
 		}
 		window.setVisible(true);
+	}
+	
+	public enum FieldType {
+		REGULAR(0),
+		THREE_PLAYERS(1),
+		FOUR_PLAYERS(2);
+		
+		private int value;
+		private static Map map = new HashMap<>();
+		
+		private FieldType(int value) {
+			this.value = value;
+		}
+		
+		static {
+			for (FieldType fieldType : FieldType.values()) {
+				map.put(fieldType.value, fieldType);
+			}
+		}
+		
+		public static FieldType valueOf(int fieldType) {
+			return (FieldType) map.get(fieldType);
+		}
+		
+		public int getValue() {
+			return value;
+		}
+		
+		@Override
+		public String toString() {
+			String outName = "";
+			for (String s: name().split("_")) {
+				outName += name().substring(0, 1).toUpperCase() + name().substring(1).toLowerCase(Locale.ROOT);
+			}
+			return outName;
+		}
 	}
 }

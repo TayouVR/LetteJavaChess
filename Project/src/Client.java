@@ -4,6 +4,7 @@ import java.nio.file.Path;
 public class Client {
 
 	public Config config;
+	UserInterfaceThread userInterfaceThread;
 
 	private String configFilePath = "config.json";
 
@@ -12,19 +13,19 @@ public class Client {
 	}
 
 	public Client() {
+		
+		config = new Config(configFilePath, this);
+		
+		LoadConfig();
 
 		// start UI up
-		UserInterfaceThread userInterfaceThread = new UserInterfaceThread();
+		userInterfaceThread = new UserInterfaceThread(this);
 		userInterfaceThread.start();
-
-		config = new Config(configFilePath);
-
-		LoadConfig();
 
 	}
 
 	private void LoadConfig() {
-		System.out.println("loading Config");
+		System.out.println("loading Config initially");
 
 		if (Files.exists(Path.of(configFilePath))) {
 			config.LoadConfig();
