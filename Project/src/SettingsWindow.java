@@ -93,7 +93,7 @@ public class SettingsWindow {
 		resolutionList.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (uiThread.client.config.getFullscreenMode() != Config.FulllscreenMode.FULLSCREEN) {
+				if (uiThread.client.config.getFullscreenMode() != Config.FullscreenMode.FULLSCREEN) {
 					
 					JComboBox cb = (JComboBox)e.getSource();
 					String resolution = (String)cb.getSelectedItem();
@@ -126,14 +126,14 @@ public class SettingsWindow {
 			}
 		});
 		
-		JComboBox fullscreenModes = new JComboBox( Config.FulllscreenMode.values());
+		JComboBox fullscreenModes = new JComboBox( Config.FullscreenMode.values());
 		
 		fullscreenModes.setSelectedIndex(0);
 		
 		fullscreenModes.addActionListener(e -> {
 			
 			JComboBox cb = (JComboBox)e.getSource();
-			uiThread.setApplicationFullscreenMode(Config.FulllscreenMode.valueOf(cb.getSelectedIndex()));
+			uiThread.setApplicationFullscreenMode(Config.FullscreenMode.valueOf(cb.getSelectedIndex()));
 			window.requestFocusInWindow();
 			window.toFront();
 			window.repaint();

@@ -21,7 +21,7 @@ public class Config {
 	private ArrayList<Integer> resolution = new ArrayList<>(); // [0] = width, [1] = height
 	private ArrayList<String> existingFigureSkins = new ArrayList<>(); // paths to all skin folders, that are currently loaded
 	private Skin[] loadedFigureSkins; // all skins, that are currently loaded
-	private FulllscreenMode fullscreenMode = FulllscreenMode.FULLSCREEN; // all skins, that are currently loaded
+	private FullscreenMode fullscreenMode = FullscreenMode.FULLSCREEN; // all skins, that are currently loaded
 	
 	/////////////////////////
 	/// Getter and Setter ///
@@ -59,11 +59,11 @@ public class Config {
 		this.loadedFigureSkins = loadedFigureSkins;
 	}
 	
-	public FulllscreenMode getFullscreenMode() {
+	public FullscreenMode getFullscreenMode() {
 		return fullscreenMode;
 	}
 	
-	public void setFullscreenMode(FulllscreenMode fullscreenMode) {
+	public void setFullscreenMode(FullscreenMode fullscreenMode) {
 		this.fullscreenMode = fullscreenMode;
 	}
 	
@@ -114,7 +114,7 @@ public class Config {
 		}
 	}
 	
-	public enum FulllscreenMode {
+	public enum FullscreenMode {
 		FULLSCREEN(0),
 		WINDOWED(1),
 		MAXIMIZED(2);
@@ -122,18 +122,18 @@ public class Config {
 		private int value;
 		private static Map map = new HashMap<>();
 		
-		private FulllscreenMode(int value) {
+		private FullscreenMode(int value) {
 			this.value = value;
 		}
 		
 		static {
-			for (FulllscreenMode pageType : FulllscreenMode.values()) {
+			for (FullscreenMode pageType : FullscreenMode.values()) {
 				map.put(pageType.value, pageType);
 			}
 		}
 		
-		public static FulllscreenMode valueOf(int pageType) {
-			return (FulllscreenMode) map.get(pageType);
+		public static FullscreenMode valueOf(int pageType) {
+			return (FullscreenMode) map.get(pageType);
 		}
 		
 		public int getValue() {

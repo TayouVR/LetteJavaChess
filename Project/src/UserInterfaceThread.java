@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -155,7 +153,7 @@ public class UserInterfaceThread extends Thread {
 		return panel;
 	}
 	
-	public void setApplicationFullscreenMode (Config.FulllscreenMode mode) {
+	public void setApplicationFullscreenMode (Config.FullscreenMode mode) {
 		client.config.setFullscreenMode(mode);
 		System.out.println("Changed Fullscreen mode to " + mode);
 		
