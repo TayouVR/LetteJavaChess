@@ -7,6 +7,8 @@ public class Client {
 	UserInterfaceThread userInterfaceThread;
 
 	private String configFilePath = "config.json";
+	
+	public Game localGame;
 
 	public static void main(String[] args) {
 		new Client();

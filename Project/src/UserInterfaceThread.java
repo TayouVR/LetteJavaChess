@@ -136,7 +136,9 @@ public class UserInterfaceThread extends Thread {
 		
 		JComboBox playerCount = new JComboBox(new String[]{"1", "2", "3", "4"});
 		
-		//playerCount
+		playerCount.addActionListener(e -> {
+		
+		});
 		
 		
 		
