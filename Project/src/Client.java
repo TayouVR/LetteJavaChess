@@ -25,6 +25,11 @@ public class Client {
 		userInterfaceThread.start();
 
 	}
+	
+	public void startNewGame(boolean isLocal) {
+		localGame = new Game();
+		localGame.isServer = !isLocal;
+	}
 
 	private void LoadConfig() {
 		System.out.println("loading Config initially");

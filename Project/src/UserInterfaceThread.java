@@ -31,6 +31,7 @@ public class UserInterfaceThread extends Thread {
 			e.printStackTrace();
 		}
 		chooseGameType = CreateChooseGameTypeScreen();
+		preGame = CreateGameConfigScreen();
 
 		mainMenu = constructMainMenu();
 		window.add(mainMenu);
@@ -77,7 +78,7 @@ public class UserInterfaceThread extends Thread {
 		mainMenu.add(exitButton);
 		mainMenu.add(Box.createVerticalGlue());
 
-		JPanel panel=new JPanel();
+		JPanel panel = new JPanel();
 		BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.LINE_AXIS);
 		panel.setLayout(boxLayout);
 		panel.add(Box.createHorizontalGlue());
@@ -106,7 +107,12 @@ public class UserInterfaceThread extends Thread {
 		btn_hostMultiplayerGame.setPreferredSize(menuButtonSize);
 		btn_backToMainMenu.setPreferredSize(menuButtonSize);
 		
-		//btn_localGame.addActionListener(e -> );
+		btn_localGame.addActionListener(e -> {
+			client.startNewGame(true);
+			window.setContentPane(preGame);
+			window.revalidate();
+			window.repaint();
+		});
 		//btn_joinMultiplayerGame.addActionListener(e -> new SettingsWindow(this));
 		//btn_hostMultiplayerGame.addActionListener(e -> System.exit(0));
 		btn_backToMainMenu.addActionListener(e -> {
@@ -134,13 +140,25 @@ public class UserInterfaceThread extends Thread {
 	public JPanel CreateGameConfigScreen() {
 		JPanel panel = new JPanel();
 		
-		JComboBox playerCount = new JComboBox(new String[]{"1", "2", "3", "4"});
+		JSlider playerCount = new JSlider();
 		
-		playerCount.addActionListener(e -> {
+		playerCount.setMinimum(1);
+		playerCount.setMaximum(4);
+		playerCount.setMinorTickSpacing(1);
+		playerCount.setMajorTickSpacing(1);
+		playerCount.createStandardLabels(1);
+		playerCount.setPaintTicks(true);
+		playerCount.setPaintLabels(true);
+		playerCount.setSnapToTicks(true);
 		
+		playerCount.addChangeListener(e -> {
+			JSlider slider = (JSlider) e.getSource();
+			client.localGame.properties.playerCount = slider.getValue();
+			playerCount.setValue(slider.getValue());
 		});
 		
 		
+		panel.add(playerCount);
 		
 		return panel;
 	}
