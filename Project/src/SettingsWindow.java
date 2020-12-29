@@ -13,7 +13,7 @@ public class SettingsWindow {
 	JPanel audioSettings;
 
 	JPanel selectedTabPanel;
-	
+
 	UserInterfaceThread uiThread;
 
 	public SettingsWindow(UserInterfaceThread uiThread) {
@@ -83,7 +83,7 @@ public class SettingsWindow {
 	private JPanel graphicsSettings() {
 		JPanel panel = new JPanel();
 
-		String[] resolutionStrings = { "3840x2160", "1920x1080", "1600x1050", "1280x800", "1600x900", "1360x768", "1280x1024", "1024x768", "1200x720", "420x360" };
+		String[] resolutionStrings = {"3840x2160", "1920x1080", "1600x1050", "1280x800", "1600x900", "1360x768", "1280x1024", "1024x768", "1200x720", "420x360"};
 
 
 		JComboBox resolutionList = new JComboBox(resolutionStrings);
@@ -94,12 +94,12 @@ public class SettingsWindow {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (uiThread.client.config.getFullscreenMode() != Config.FullscreenMode.FULLSCREEN) {
-					
-					JComboBox cb = (JComboBox)e.getSource();
-					String resolution = (String)cb.getSelectedItem();
+
+					JComboBox cb = (JComboBox) e.getSource();
+					String resolution = (String) cb.getSelectedItem();
 					System.out.println(resolution);
 					String[] size = resolution.split("x", 2);
-					for (String s: size) {
+					for (String s : size) {
 						System.out.println(s);
 					}
 					uiThread.window.setSize(Integer.parseInt(size[0]), Integer.parseInt(size[1]));
@@ -108,49 +108,101 @@ public class SettingsWindow {
 			}
 		});
 
-		String[] skinStrings = {"Standard","Spaceships"};
+		String[] skinStrings = {"Standard", "Spaceships"};
 
 		JComboBox skinList = new JComboBox(skinStrings);
 
 		skinList.setSelectedIndex(0);
-		
+
 		skinList.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				JComboBox cb = (JComboBox)e.getSource();
-				String resolution = (String)cb.getSelectedItem();
+				JComboBox cb = (JComboBox) e.getSource();
+				String resolution = (String) cb.getSelectedItem();
 				//window.set();
 				uiThread.client.config.SaveConfig();
 
 			}
 		});
-		
-		JComboBox fullscreenModes = new JComboBox( Config.FullscreenMode.values());
-		
+
+		JComboBox fullscreenModes = new JComboBox(Config.FullscreenMode.values());
+
 		fullscreenModes.setSelectedIndex(0);
-		
+
 		fullscreenModes.addActionListener(e -> {
-			
-			JComboBox cb = (JComboBox)e.getSource();
+
+			JComboBox cb = (JComboBox) e.getSource();
 			uiThread.setApplicationFullscreenMode(Config.FullscreenMode.valueOf(cb.getSelectedIndex()));
 			window.requestFocusInWindow();
 			window.toFront();
 			window.repaint();
 			uiThread.client.config.SaveConfig();
-			
+
 		});
-		
+
+
 		panel.add(resolutionList);
 		panel.add(skinList);
 		panel.add(fullscreenModes);
-		
+
 		return panel;
 	}
 
 	private JPanel audioSettings() {
-		JPanel panel = new JPanel();
+		JPanel panel2 = new JPanel();
 
-		return panel;
+		String[] audioStrings = {"", "", ""};
+
+
+		JComboBox audioList = new JComboBox(audioStrings);
+
+		audioList.setSelectedIndex(0);
+
+		audioList.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				JComboBox cb = (JComboBox) e.getSource();
+				String audio = (String) cb.getSelectedItem();
+				System.out.println(audio);
+
+			}
+		});
+
+
+		JSlider volumeSlider = new JSlider();
+
+		// Mindestwert wird gesetzt
+		volumeSlider.setMinimum(0);
+
+		// Maximalwert wird gesetzt
+		volumeSlider.setMaximum(20);
+
+		// Die Abstände zwischen den Teilmarkierungen werden festgelegt
+		volumeSlider.setMajorTickSpacing(5);
+		volumeSlider.setMinorTickSpacing(1);
+
+		// Standardmarkierungen werden erzeugt
+		volumeSlider.createStandardLabels(1);
+
+		// Zeichnen der Markierungen wird true gesetzt
+		volumeSlider.setPaintTicks(true);
+
+		// Zeichnen der Labels wird true gesetzt
+		volumeSlider.setPaintLabels(true);
+
+		// Schiebebalken wird auf den Wert 10 gesetzt
+		volumeSlider.setValue(10);
+
+		panel2.add(volumeSlider);
+
+		panel2.add(audioList);
+
+		return panel2;
+
+
 	}
+
 }
+
