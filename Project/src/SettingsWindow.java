@@ -102,6 +102,7 @@ public class SettingsWindow {
 
 		String[] audioStrings = {"", "", ""};
 
+		//TODO Shyguy hier diesen Slider und Dropdown via .forms datei machen (action listener bleibt hier)
 
 		JComboBox audioList = new JComboBox(audioStrings);
 

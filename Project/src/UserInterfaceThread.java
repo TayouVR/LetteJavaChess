@@ -12,7 +12,7 @@ public class UserInterfaceThread extends Thread {
 	MainMenu mainMenu;
 	ChooseGameTypeScreen chooseGameType;
 	GameConfigScreen preGame;
-	JPanel game;
+	GameScreen game;
 	
 	public UserInterfaceThread(Client client) {
 		this.client = client;
@@ -32,8 +32,10 @@ public class UserInterfaceThread extends Thread {
 		}
 		chooseGameType = new ChooseGameTypeScreen(this);
 		preGame = new GameConfigScreen(this);
-
 		mainMenu = new MainMenu(this);
+		game = new GameScreen(this);
+		
+		
 		setPanel(mainMenu.panel1);
 
 		window.setTitle("Four Player Chess");

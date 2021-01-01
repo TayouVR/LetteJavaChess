@@ -60,7 +60,7 @@ public class GameConfigScreen {
 		});
 		
 		startButton.addActionListener(e -> {
-			userInterfaceThread.setPanel(userInterfaceThread.game);
+			userInterfaceThread.setPanel(userInterfaceThread.game.panel1);
 		});
 		
 		
