@@ -22,6 +22,8 @@ public class SettingsWindow {
 	private JLabel label_resolutions;
 	private JLabel label_skins;
 	private JLabel label_fullscreenMode;
+	private JSlider slider1;
+	private JComboBox comboBox_audioDevice;
 	
 	public SettingsWindow(UserInterfaceThread uiThread) {
 		this.uiThread = uiThread;
@@ -97,61 +99,17 @@ public class SettingsWindow {
 		});
 	}
 
-	private JPanel audioSettings() {
-		JPanel panel2 = new JPanel();
-
-		String[] audioStrings = {"", "", ""};
+	private void audioSettings() {
 
 		//TODO Shyguy hier diesen Slider und Dropdown via .forms datei machen (action listener bleibt hier)
-
-		JComboBox audioList = new JComboBox(audioStrings);
-
-		audioList.setSelectedIndex(0);
-
-		audioList.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				JComboBox cb = (JComboBox) e.getSource();
-				String audio = (String) cb.getSelectedItem();
-				System.out.println(audio);
-
-			}
+		
+		comboBox_audioDevice.setSelectedIndex(0);
+		
+		comboBox_audioDevice.addActionListener(e -> {
+			JComboBox cb = (JComboBox) e.getSource();
+			String audio = (String) cb.getSelectedItem();
+			System.out.println(audio);
 		});
-
-
-		JSlider volumeSlider = new JSlider();
-
-		// Mindestwert wird gesetzt
-		volumeSlider.setMinimum(0);
-
-		// Maximalwert wird gesetzt
-		volumeSlider.setMaximum(20);
-
-		// Die Abstände zwischen den Teilmarkierungen werden festgelegt
-		volumeSlider.setMajorTickSpacing(5);
-		volumeSlider.setMinorTickSpacing(1);
-
-		// Standardmarkierungen werden erzeugt
-		volumeSlider.createStandardLabels(1);
-
-		// Zeichnen der Markierungen wird true gesetzt
-		volumeSlider.setPaintTicks(true);
-
-		// Zeichnen der Labels wird true gesetzt
-		volumeSlider.setPaintLabels(true);
-
-		// Schiebebalken wird auf den Wert 10 gesetzt
-		volumeSlider.setValue(10);
-
-		panel2.add(volumeSlider);
-
-		panel2.add(audioList);
-
-		return panel2;
-
-
 	}
-
 }
 

@@ -53,18 +53,11 @@ public class GameScreen {
 				else{
 					gamePanel.add(new JLabel());
 				}
-
-				/////////////////////////////////////////////////////////////////////////
-				//TODO Jasko, mach hier in das panel1 die ganzen Spielfeld sachen rein //
-				/////////////////////////////////////////////////////////////////////////
-
-
 			}
 		}
 	}
 	
 	public void setFigureToPosition(int x, int y, Figure figure) {
-		System.out.println(felder[x][y]);
 		felder[x][y].setIcon(figure.getSingleImage());
 	}
 	

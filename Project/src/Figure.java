@@ -13,8 +13,11 @@ public class Figure {
 	
 	private FigureType type;
 	
-	public Figure(FigureType type) {
+	private int color;
+	
+	public Figure(FigureType type, int color) {
 		this.type = type;
+		this.color = color;
 	}
 	
 	private BufferedImage getImage(String filename) {
@@ -40,22 +43,22 @@ public class Figure {
 		
 		switch (type) {
 			case KING -> {
-				srcImage = cropImage(srcImage, new Rectangle(oneFigureSize*5, 0, oneFigureSize, oneFigureSize));
+				srcImage = cropImage(srcImage, new Rectangle(oneFigureSize*5, oneFigureSize*color, oneFigureSize, oneFigureSize));
 			}
 			case QUEEN -> {
-				srcImage = cropImage(srcImage, new Rectangle(oneFigureSize*4, 0, oneFigureSize, oneFigureSize));
+				srcImage = cropImage(srcImage, new Rectangle(oneFigureSize*4, oneFigureSize*color, oneFigureSize, oneFigureSize));
 			}
 			case ROOK -> {
-				srcImage = cropImage(srcImage, new Rectangle(oneFigureSize*3, 0, oneFigureSize, oneFigureSize));
+				srcImage = cropImage(srcImage, new Rectangle(oneFigureSize*3, oneFigureSize*color, oneFigureSize, oneFigureSize));
 			}
 			case BISHOP -> {
-				srcImage = cropImage(srcImage, new Rectangle(oneFigureSize*2, 0, oneFigureSize, oneFigureSize));
+				srcImage = cropImage(srcImage, new Rectangle(oneFigureSize*2, oneFigureSize*color, oneFigureSize, oneFigureSize));
 			}
 			case KNIGHT -> {
-				srcImage = cropImage(srcImage, new Rectangle(oneFigureSize, 0, oneFigureSize, oneFigureSize));
+				srcImage = cropImage(srcImage, new Rectangle(oneFigureSize, oneFigureSize*color, oneFigureSize, oneFigureSize));
 			}
 			case PAWN -> {
-				srcImage = cropImage(srcImage, new Rectangle(0, 0, oneFigureSize, oneFigureSize));
+				srcImage = cropImage(srcImage, new Rectangle(0, oneFigureSize*color, oneFigureSize, oneFigureSize));
 			}
 		}
 		
