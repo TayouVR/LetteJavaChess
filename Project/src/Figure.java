@@ -59,7 +59,8 @@ public class Figure {
 			}
 		}
 		
-		return new ImageIcon(srcImage);
+		
+		return new ImageIcon(srcImage.getScaledInstance(64, 64, 1));
 	}
 	
 	private BufferedImage cropImage(BufferedImage src, Rectangle rect) {

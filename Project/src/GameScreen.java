@@ -17,7 +17,7 @@ public class GameScreen {
 	private JLabel playerName2;
 	private JLabel playerName4;
 
-	private FieldCoordinates[][] felder = new FieldCoordinates[14][14];
+	public FieldCoordinates[][] felder = new FieldCoordinates[14][14];
 
 
 	//Chessboard Elements
@@ -44,7 +44,7 @@ public class GameScreen {
 
 
 					} else {
-						felder[i][j].setBackground(Color.black);
+						felder[i][j].setBackground(new Color(100,100,100));
 					}
 					gamePanel.add(felder[i][j]);
 
@@ -61,5 +61,14 @@ public class GameScreen {
 
 			}
 		}
+	}
+	
+	public void setFigureToPosition(int x, int y, Figure figure) {
+		System.out.println(felder[x][y]);
+		felder[x][y].setIcon(figure.getSingleImage());
+	}
+	
+	public FieldCoordinates getFigureFromPosition(int x, int y) {
+		return felder[x][y];
 	}
 }

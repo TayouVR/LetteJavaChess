@@ -60,6 +60,7 @@ public class GameConfigScreen {
 		});
 		
 		startButton.addActionListener(e -> {
+			userInterfaceThread.client.localGame.placeFigures(userInterfaceThread.game);
 			userInterfaceThread.setPanel(userInterfaceThread.game.panel1);
 		});
 		
