@@ -19,7 +19,10 @@ public class ChooseGameTypeScreen {
 			userInterfaceThread.setPanel(userInterfaceThread.preGame.panel1);
 		});
 		//btn_joinMultiplayerGame.addActionListener(e -> new SettingsWindow(this));
-		//btn_hostMultiplayerGame.addActionListener(e -> System.exit(0));
+		btn_hostMultiplayerGame.addActionListener(e -> {
+			userInterfaceThread.client.startNewGame(true);
+			userInterfaceThread.setPanel(userInterfaceThread.preGame.panel1);
+		});
 		btn_backToMainMenu.addActionListener(e -> userInterfaceThread.setPanel(userInterfaceThread.mainMenu.panel1));
 	}
 }
