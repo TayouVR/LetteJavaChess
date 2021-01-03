@@ -16,7 +16,10 @@ public class FieldCoordinates extends JButton {
         setBackground(isBlack ? new Color(100,100,100) : Color.WHITE);
         gameScreen = screen;
         addActionListener(e -> {
-            if (figure != null) {
+            if (isValidMode && gameScreen.selectedFigure != null) {
+                setFigure(gameScreen.selectedFigure.figure);
+                gameScreen.selectedFigure.setFigure(null);
+            } else if (figure != null) {
                 setMoveable();
             }
         });
@@ -37,6 +40,7 @@ public class FieldCoordinates extends JButton {
     }
     
     public void setMoveable() {
+        gameScreen.selectedFigure = this;
         switch (figure.type) {
             case KING -> {
                 for (FieldCoordinates[] fields: gameScreen.felder) {

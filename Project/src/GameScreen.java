@@ -18,15 +18,15 @@ public class GameScreen {
 	private JLabel playerName4;
 
 	public FieldCoordinates[][] felder = new FieldCoordinates[14][14];
-
-	private int row;
-	private int column;
-
+	
+	public FieldCoordinates selectedFigure;
 
 	public GameScreen(UserInterfaceThread userInterfaceThread) {
 		this.userInterfaceThread = userInterfaceThread;
 
-		btn_leaveGame.addActionListener(e -> userInterfaceThread.setPanel(userInterfaceThread.chooseGameType.panel1));
+		btn_leaveGame.addActionListener(e -> {
+			userInterfaceThread.setPanel(userInterfaceThread.chooseGameType.panel1);
+		});
 
 		//swing ui designer gui form
 		gamePanel.setLayout(new GridLayout(14,14));
