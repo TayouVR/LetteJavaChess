@@ -19,6 +19,13 @@ public class FieldCoordinates extends JButton {
             if (isValidMode && gameScreen.selectedFigure != null) {
                 setFigure(gameScreen.selectedFigure.figure);
                 gameScreen.selectedFigure.setFigure(null);
+                for (FieldCoordinates[] fields: gameScreen.felder) {
+                    for (FieldCoordinates field: fields) {
+                        if (field != null) {
+                            field.setValidMove(false);
+                        }
+                    }
+                }
             } else if (figure != null) {
                 setMoveable();
             }
