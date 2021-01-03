@@ -1,7 +1,7 @@
 public class GameProperties {
 	
 	public int playerCount; 					// Player count
-	public FieldType map; 	// play field
+	public PlayField map; 						// play field
 	
 	public boolean hasTimeLimit; 				// whether or not the game has a time limit
 	public int fullGameTimer; 					// maximum Time for the entire game

@@ -17,9 +17,9 @@ public class GameScreen {
 	private JLabel playerName2;
 	private JLabel playerName4;
 
-	public FieldCoordinates[][] felder = new FieldCoordinates[14][14];
+	public Field[][] felder = new Field[14][14];
 	
-	public FieldCoordinates selectedFigure;
+	public Field selectedField;
 
 	public GameScreen(UserInterfaceThread userInterfaceThread) {
 		this.userInterfaceThread = userInterfaceThread;
@@ -36,11 +36,11 @@ public class GameScreen {
 							 i > 2 && i < 11 ||
 							 j > 2 && i > 10 && j < 11) {
 					if ((i + j) % 2 == 0) {
-						felder[i][j] = new FieldCoordinates(this, false);
+						felder[i][j] = new Field(this, false);
 
 
 					} else {
-						felder[i][j] = new FieldCoordinates(this, true);
+						felder[i][j] = new Field(this, true);
 					}
 					
 					felder[i][j].x = i;
@@ -61,7 +61,7 @@ public class GameScreen {
 		felder[x][y].setFigure(figure);
 	}
 	
-	public FieldCoordinates getFigureFromPosition(int x, int y) {
+	public Field getFigureFromPosition(int x, int y) {
 		return felder[x][y];
 	}
 }

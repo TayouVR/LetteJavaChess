@@ -14,6 +14,8 @@ public class Figure {
 	public FigureType type;
 	public Direction direction;
 	
+	public boolean isFirstMove = true;
+	
 	private int color;
 	
 	public Figure(FigureType type, int color, Direction direction) {

@@ -2,7 +2,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public enum FieldType {
+public enum PlayField {
 	REGULAR(0),
 	THREE_PLAYERS(1),
 	FOUR_PLAYERS(2);
@@ -10,18 +10,18 @@ public enum FieldType {
 	private int value;
 	private static Map map = new HashMap<>();
 	
-	private FieldType(int value) {
+	private PlayField(int value) {
 		this.value = value;
 	}
 	
 	static {
-		for (FieldType fieldType : FieldType.values()) {
-			map.put(fieldType.value, fieldType);
+		for (PlayField playField : PlayField.values()) {
+			map.put(playField.value, playField);
 		}
 	}
 	
-	public static FieldType valueOf(int fieldType) {
-		return (FieldType) map.get(fieldType);
+	public static PlayField valueOf(int fieldType) {
+		return (PlayField) map.get(fieldType);
 	}
 	
 	public int getValue() {

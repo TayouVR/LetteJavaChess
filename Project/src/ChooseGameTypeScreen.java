@@ -16,11 +16,13 @@ public class ChooseGameTypeScreen {
 		
 		btn_localGame.addActionListener(e -> {
 			userInterfaceThread.client.startNewGame(true);
+			userInterfaceThread.client.localGame.properties.playerCount = 2;
 			userInterfaceThread.setPanel(userInterfaceThread.preGame.panel1);
 		});
 		//btn_joinMultiplayerGame.addActionListener(e -> new SettingsWindow(this));
 		btn_hostMultiplayerGame.addActionListener(e -> {
 			userInterfaceThread.client.startNewGame(true);
+			userInterfaceThread.client.localGame.properties.playerCount = 2;
 			userInterfaceThread.setPanel(userInterfaceThread.preGame.panel1);
 		});
 		btn_backToMainMenu.addActionListener(e -> userInterfaceThread.setPanel(userInterfaceThread.mainMenu.panel1));

@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class FieldCoordinates extends JButton {
+public class Field extends JButton {
     public int x;
     public int y;
     private Figure figure;
@@ -11,16 +11,17 @@ public class FieldCoordinates extends JButton {
     
     private GameScreen gameScreen;
     
-    public FieldCoordinates(GameScreen screen, boolean isBlack) {
+    public Field(GameScreen screen, boolean isBlack) {
         this.isBlack = isBlack;
         setBackground(isBlack ? new Color(100,100,100) : Color.WHITE);
         gameScreen = screen;
         addActionListener(e -> {
-            if (isValidMove && gameScreen.selectedFigure != null) {
-                setFigure(gameScreen.selectedFigure.figure);
-                gameScreen.selectedFigure.setFigure(null);
-                for (FieldCoordinates[] fields: gameScreen.felder) {
-                    for (FieldCoordinates field: fields) {
+            if (isValidMove && gameScreen.selectedField != null) {
+                setFigure(gameScreen.selectedField.figure);
+                gameScreen.selectedField.figure.isFirstMove = false;
+                gameScreen.selectedField.setFigure(null);
+                for (Field[] fields: gameScreen.felder) {
+                    for (Field field: fields) {
                         if (field != null) {
                             field.setValidMove(false);
                         }
@@ -47,11 +48,11 @@ public class FieldCoordinates extends JButton {
     }
     
     public void setMoveable() {
-        gameScreen.selectedFigure = this;
+        gameScreen.selectedField = this;
         switch (figure.type) {
             case KING -> {
-                for (FieldCoordinates[] fields: gameScreen.felder) {
-                    for (FieldCoordinates field: fields) {
+                for (Field[] fields: gameScreen.felder) {
+                    for (Field field: fields) {
                         if (field != null) {
                 
                             int rowDelta = Math.abs(field.x - x);
@@ -67,8 +68,8 @@ public class FieldCoordinates extends JButton {
                 }
             }
             case QUEEN -> {
-                for (FieldCoordinates[] fields: gameScreen.felder) {
-                    for (FieldCoordinates field: fields) {
+                for (Field[] fields: gameScreen.felder) {
+                    for (Field field: fields) {
                         if (field != null) {
                 
                             int rowDelta = Math.abs(field.x - x);
@@ -87,8 +88,8 @@ public class FieldCoordinates extends JButton {
                 }
             }
             case ROOK -> {
-                for (FieldCoordinates[] fields: gameScreen.felder) {
-                    for (FieldCoordinates field: fields) {
+                for (Field[] fields: gameScreen.felder) {
+                    for (Field field: fields) {
                         if (field != null) {
                 
                             int rowDelta = Math.abs(field.x - x);
@@ -105,8 +106,8 @@ public class FieldCoordinates extends JButton {
                 }
             }
             case BISHOP -> {
-                for (FieldCoordinates[] fields: gameScreen.felder) {
-                    for (FieldCoordinates field: fields) {
+                for (Field[] fields: gameScreen.felder) {
+                    for (Field field: fields) {
                         if (field != null) {
                 
                             int rowDelta = Math.abs(field.x - x);
@@ -123,8 +124,8 @@ public class FieldCoordinates extends JButton {
                 }
             }
             case KNIGHT -> {
-                for (FieldCoordinates[] fields: gameScreen.felder) {
-                    for (FieldCoordinates field: fields) {
+                for (Field[] fields: gameScreen.felder) {
+                    for (Field field: fields) {
                         if (field != null) {
                             
                             int rowDelta = Math.abs(field.x - x);
@@ -140,8 +141,8 @@ public class FieldCoordinates extends JButton {
                 }
             }
             case PAWN -> {
-                for (FieldCoordinates[] fields: gameScreen.felder) {
-                    for (FieldCoordinates field: fields) {
+                for (Field[] fields: gameScreen.felder) {
+                    for (Field field: fields) {
                         if (field != null) {
                 
                             int rowDelta = field.x - x;
@@ -152,31 +153,79 @@ public class FieldCoordinates extends JButton {
     
                             switch (figure.direction) {
                                 case UP -> {
-                                    if (rowDelta == -1 && colDeltaAbs == 1) {
-                                        field.setValidMove(true);
+                                    if (field.figure != null) {
+                                        if (rowDelta == -1 && colDeltaAbs == 1) {
+                                            field.setValidMove(true);
+                                        } else {
+                                            field.setValidMove(false);
+                                        }
                                     } else {
-                                        field.setValidMove(false);
+                                        if (figure.isFirstMove) {
+                                            if ((rowDelta == -1 || rowDelta == -2) && colDeltaAbs == 0) {
+                                                field.setValidMove(true);
+                                            }
+                                        } else {
+                                            if (rowDelta == -1 && colDeltaAbs == 0) {
+                                                field.setValidMove(true);
+                                            }
+                                        }
                                     }
                                 }
                                 case DOWN -> {
-                                    if (rowDelta == 1 && colDeltaAbs == 1) {
-                                        field.setValidMove(true);
+                                    if (field.figure != null) {
+                                        if (rowDelta == 1 && colDeltaAbs == 1) {
+                                            field.setValidMove(true);
+                                        } else {
+                                            field.setValidMove(false);
+                                        }
                                     } else {
-                                        field.setValidMove(false);
+                                        if (figure.isFirstMove) {
+                                            if ((rowDelta == 1 || rowDelta == 2) && colDeltaAbs == 0) {
+                                                field.setValidMove(true);
+                                            }
+                                        } else {
+                                            if (rowDelta == 1 && colDeltaAbs == 0) {
+                                                field.setValidMove(true);
+                                            }
+                                        }
                                     }
                                 }
                                 case LEFT -> {
-                                    if (colDelta == -1 && rowDeltaAbs == 1) {
-                                        field.setValidMove(true);
+                                    if (field.figure != null) {
+                                        if (colDelta == -1 && rowDeltaAbs == 1) {
+                                            field.setValidMove(true);
+                                        } else {
+                                            field.setValidMove(false);
+                                        }
                                     } else {
-                                        field.setValidMove(false);
+                                        if (figure.isFirstMove) {
+                                            if ((colDelta == -1 || colDelta == -2) && rowDeltaAbs == 0) {
+                                                field.setValidMove(true);
+                                            }
+                                        } else {
+                                            if (colDelta == -1 && rowDeltaAbs == 0) {
+                                                field.setValidMove(true);
+                                            }
+                                        }
                                     }
                                 }
                                 case RIGHT -> {
-                                    if (colDelta == 1 && rowDeltaAbs == 1) {
-                                        field.setValidMove(true);
+                                    if (field.figure != null) {
+                                        if (colDelta == 1 && rowDeltaAbs == 1) {
+                                            field.setValidMove(true);
+                                        } else {
+                                            field.setValidMove(false);
+                                        }
                                     } else {
-                                        field.setValidMove(false);
+                                        if (figure.isFirstMove) {
+                                            if ((colDelta == 1 || colDelta == 2) && rowDeltaAbs == 0) {
+                                                field.setValidMove(true);
+                                            }
+                                        } else {
+                                            if (colDelta == 1 && rowDeltaAbs == 0) {
+                                                field.setValidMove(true);
+                                            }
+                                        }
                                     }
                                 }
                             }
