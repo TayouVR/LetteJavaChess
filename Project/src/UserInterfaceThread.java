@@ -43,7 +43,9 @@ public class UserInterfaceThread extends Thread {
 		// Set Window properties
 		window.setTitle("Four Player Chess");
 		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		window.setSize(400, 300);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Object[] res = client.config.getResolution();
+		window.setBounds(screenSize.width / 2 - ((int)res[0]/2), screenSize.height / 2 - ((int)res[1]/2), (int)res[0], (int)res[1]);
 		setApplicationFullscreenMode(client.config.getFullscreenMode());
 		window.setVisible(true);
 	}
@@ -77,8 +79,9 @@ public class UserInterfaceThread extends Thread {
 				window.setUndecorated(false);
 				window.pack();
 				window.setExtendedState( JFrame.NORMAL );
+				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 				Object[] res = client.config.getResolution();
-				window.setSize((int)res[0], (int)res[1]);
+				window.setBounds(screenSize.width / 2 - ((int)res[0]/2), screenSize.height / 2 - ((int)res[1]/2), (int)res[0], (int)res[1]);
 			}
 			case MAXIMIZED -> {
 				window.setUndecorated(false);

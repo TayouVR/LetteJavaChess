@@ -64,6 +64,7 @@ public class SettingsWindow {
 					System.out.println(s);
 				}
 				uiThread.window.setSize(Integer.parseInt(size[0]), Integer.parseInt(size[1]));
+				uiThread.client.config.setResolution(Integer.parseInt(size[0]), Integer.parseInt(size[1]));
 				uiThread.client.config.SaveConfig();
 			}
 		});

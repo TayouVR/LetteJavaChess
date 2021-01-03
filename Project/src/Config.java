@@ -40,8 +40,10 @@ public class Config {
 		return resolution.toArray();
 	}
 	
-	public void setResolution(ArrayList<Integer> resolution) {
-		this.resolution = resolution;
+	public void setResolution(int width, int height) {
+		this.resolution = new ArrayList<>();
+		resolution.add(width);
+		resolution.add(height);
 		jsonObject.put("resolution", resolution);
 	}
 	
@@ -97,6 +99,12 @@ public class Config {
 
 		try {
 			jsonObject = (JSONObject) new JSONParser().parse(Files.readString(Path.of(configFilePath), StandardCharsets.UTF_8));
+			
+			fullscreenMode = FullscreenMode.valueOf(((Long)jsonObject.get("fullscreenMode")).intValue());
+			resolution = new ArrayList<>();
+			for (Long number: (ArrayList<Long>)jsonObject.get("resolution")) {
+				resolution.add(number.intValue());
+			}
 
 			System.out.println("Config File successfully loaded");
 		} catch (Exception e) {
