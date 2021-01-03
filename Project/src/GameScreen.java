@@ -58,7 +58,7 @@ public class GameScreen {
 	}
 	
 	public void setFigureToPosition(int x, int y, Figure figure) {
-		felder[x][y].setIcon(figure.getSingleImage());
+		felder[x][y].setFigure(figure);
 	}
 	
 	public FieldCoordinates getFigureFromPosition(int x, int y) {
