@@ -43,9 +43,6 @@ public class UserInterfaceThread extends Thread {
 		// Set Window properties
 		window.setTitle("Four Player Chess");
 		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		Object[] res = client.config.getResolution();
-		window.setBounds(screenSize.width / 2 - ((int)res[0]/2), screenSize.height / 2 - ((int)res[1]/2), (int)res[0], (int)res[1]);
 		setApplicationFullscreenMode(client.config.getFullscreenMode());
 		window.setVisible(true);
 	}
@@ -69,17 +66,18 @@ public class UserInterfaceThread extends Thread {
 		System.out.println("Changed Fullscreen mode to " + mode);
 		
 		window.dispose();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		switch (mode) {
 			case FULLSCREEN -> {
 				window.setUndecorated(true);
 				window.pack();
 				window.setExtendedState( window.getExtendedState()|JFrame.MAXIMIZED_BOTH );
+				window.setBounds(0, 0, screenSize.width, screenSize.height);
 			}
 			case WINDOWED -> {
 				window.setUndecorated(false);
 				window.pack();
 				window.setExtendedState( JFrame.NORMAL );
-				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 				Object[] res = client.config.getResolution();
 				window.setBounds(screenSize.width / 2 - ((int)res[0]/2), screenSize.height / 2 - ((int)res[1]/2), (int)res[0], (int)res[1]);
 			}

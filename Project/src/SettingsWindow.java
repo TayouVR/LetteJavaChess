@@ -24,6 +24,7 @@ public class SettingsWindow {
 	private JLabel label_fullscreenMode;
 	private JSlider slider1;
 	private JComboBox comboBox_audioDevice;
+	private JComboBox comboBox_figureSets;
 	
 	public SettingsWindow(UserInterfaceThread uiThread) {
 		this.uiThread = uiThread;

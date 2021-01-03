@@ -7,7 +7,7 @@ public class FieldCoordinates extends JButton {
     private Figure figure;
     
     public boolean isBlack;
-    private boolean isValidMode;
+    private boolean isValidMove;
     
     private GameScreen gameScreen;
     
@@ -16,7 +16,7 @@ public class FieldCoordinates extends JButton {
         setBackground(isBlack ? new Color(100,100,100) : Color.WHITE);
         gameScreen = screen;
         addActionListener(e -> {
-            if (isValidMode && gameScreen.selectedFigure != null) {
+            if (isValidMove && gameScreen.selectedFigure != null) {
                 setFigure(gameScreen.selectedFigure.figure);
                 gameScreen.selectedFigure.setFigure(null);
                 for (FieldCoordinates[] fields: gameScreen.felder) {
@@ -188,7 +188,7 @@ public class FieldCoordinates extends JButton {
     }
     
     public void setValidMove(boolean state) {
-        isValidMode = state;
+        isValidMove = state;
         if (state) {
             setBackground(Color.CYAN);
         } else {

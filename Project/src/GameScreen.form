@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="693" height="400"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -21,14 +21,16 @@
       <grid id="b63c9" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
         <children>
           <component id="dd777" class="javax.swing.JButton" binding="btn_leaveGame">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="40"/>
+              </grid>
             </constraints>
             <properties>
               <text value="Leave Game"/>
@@ -36,7 +38,9 @@
           </component>
           <component id="5a3d5" class="javax.swing.JButton" binding="btn_skipMove">
             <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="40"/>
+              </grid>
             </constraints>
             <properties>
               <text value="Skip Move"/>
@@ -54,13 +58,17 @@
           <component id="307ae" class="javax.swing.JLabel" binding="playerName1">
             <constraints border-constraint="North"/>
             <properties>
-              <text value="Label"/>
+              <font size="36"/>
+              <horizontalAlignment value="4"/>
+              <text value="Player Names"/>
             </properties>
           </component>
           <component id="15e75" class="javax.swing.JLabel" binding="playerName3">
             <constraints border-constraint="South"/>
             <properties>
-              <text value="Label"/>
+              <font size="36"/>
+              <horizontalAlignment value="4"/>
+              <text value="Player Names"/>
             </properties>
           </component>
         </children>
@@ -75,15 +83,17 @@
           <component id="5689b" class="javax.swing.JLabel" binding="playerName2">
             <constraints border-constraint="North"/>
             <properties>
-              <horizontalAlignment value="4"/>
-              <text value="Label"/>
+              <font size="36"/>
+              <horizontalAlignment value="2"/>
+              <text value="Player Names"/>
             </properties>
           </component>
           <component id="8dd9e" class="javax.swing.JLabel" binding="playerName4">
             <constraints border-constraint="South"/>
             <properties>
-              <horizontalAlignment value="4"/>
-              <text value="Label"/>
+              <font size="36"/>
+              <horizontalAlignment value="2"/>
+              <text value="Player Names"/>
             </properties>
           </component>
         </children>
