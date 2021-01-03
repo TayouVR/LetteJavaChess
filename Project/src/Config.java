@@ -33,6 +33,7 @@ public class Config {
 	
 	public void setSelectedProfile(int selectedProfile) {
 		this.selectedProfile = selectedProfile;
+		jsonObject.put("selectedProfile", selectedProfile);
 	}
 	
 	public Object[] getResolution() {
@@ -41,6 +42,7 @@ public class Config {
 	
 	public void setResolution(ArrayList<Integer> resolution) {
 		this.resolution = resolution;
+		jsonObject.put("resolution", resolution);
 	}
 	
 	public ArrayList<String> getExistingFigureSkins() {
@@ -49,6 +51,7 @@ public class Config {
 	
 	public void setExistingFigureSkins(ArrayList<String> existingFigureSkins) {
 		this.existingFigureSkins = existingFigureSkins;
+		jsonObject.put("existingFigureSkins", existingFigureSkins);
 	}
 	
 	public Skin[] getLoadedFigureSkins() {
@@ -65,6 +68,7 @@ public class Config {
 	
 	public void setFullscreenMode(FullscreenMode fullscreenMode) {
 		this.fullscreenMode = fullscreenMode;
+		jsonObject.put("fullscreenMode", fullscreenMode.getValue());
 	}
 	
 	
@@ -85,7 +89,7 @@ public class Config {
 		jsonObject.put("selectedProfile", selectedProfile);
 		jsonObject.put("resolution", resolution);
 		jsonObject.put("existingFigureSkins", existingFigureSkins);
-		jsonObject.put("fullscreenMode", fullscreenMode);
+		jsonObject.put("fullscreenMode", fullscreenMode.getValue());
 	}
 
 	public void LoadConfig() {
@@ -105,44 +109,13 @@ public class Config {
 		System.out.println("saving Config");
 
 		try {
+			System.out.println(jsonObject.toJSONString());
 			Files.writeString(Path.of(configFilePath), jsonObject.toJSONString(), StandardCharsets.UTF_8);
 
 			System.out.println("Config File successfully saved");
 		} catch (Exception e) {
 			System.out.println("Could not save config File:");
 			e.printStackTrace();
-		}
-	}
-	
-	public enum FullscreenMode {
-		FULLSCREEN(0),
-		WINDOWED(1),
-		MAXIMIZED(2);
-		
-		private int value;
-		private static Map map = new HashMap<>();
-		
-		private FullscreenMode(int value) {
-			this.value = value;
-		}
-		
-		static {
-			for (FullscreenMode pageType : FullscreenMode.values()) {
-				map.put(pageType.value, pageType);
-			}
-		}
-		
-		public static FullscreenMode valueOf(int pageType) {
-			return (FullscreenMode) map.get(pageType);
-		}
-		
-		public int getValue() {
-			return value;
-		}
-		
-		@Override
-		public String toString() {
-			return name().substring(0, 1).toUpperCase() + name().substring(1).toLowerCase(Locale.ROOT);
 		}
 	}
 }

@@ -55,7 +55,7 @@ public class SettingsWindow {
 		comboBox_resolutions.setSelectedIndex(0);
 		
 		comboBox_resolutions.addActionListener(e -> {
-			if (uiThread.client.config.getFullscreenMode() != Config.FullscreenMode.FULLSCREEN) {
+			if (uiThread.client.config.getFullscreenMode() != FullscreenMode.FULLSCREEN) {
 				JComboBox cb = (JComboBox) e.getSource();
 				String resolution = (String) cb.getSelectedItem();
 				System.out.println(resolution);
@@ -83,7 +83,7 @@ public class SettingsWindow {
 		});
 		
 		
-		for (Config.FullscreenMode option: Config.FullscreenMode.values()) {
+		for (FullscreenMode option: FullscreenMode.values()) {
 			comboBox_fullscreenMode.addItem(option);
 		}
 		
@@ -91,7 +91,7 @@ public class SettingsWindow {
 		
 		comboBox_fullscreenMode.addActionListener(e -> {
 			JComboBox cb = (JComboBox) e.getSource();
-			uiThread.setApplicationFullscreenMode(Config.FullscreenMode.valueOf(cb.getSelectedIndex()));
+			uiThread.setApplicationFullscreenMode(FullscreenMode.valueOf(cb.getSelectedIndex()));
 			window.requestFocusInWindow();
 			window.toFront();
 			window.repaint();

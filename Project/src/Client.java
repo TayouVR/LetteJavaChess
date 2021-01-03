@@ -16,8 +16,10 @@ public class Client {
 
 	public Client() {
 		
+		// create config object
 		config = new Config(configFilePath, this);
 		
+		// Try load config file
 		LoadConfig();
 
 		// start UI up
@@ -26,11 +28,19 @@ public class Client {
 
 	}
 	
+	/**
+	 * Start a Game instance
+	 * @param isLocal whether the instance is running as a server or is connected to one
+	 */
 	public void startNewGame(boolean isLocal) {
+		userInterfaceThread.game = new GameScreen(userInterfaceThread);
 		localGame = new Game();
 		localGame.isServer = !isLocal;
 	}
-
+	
+	/**
+	 * Try to load config file, if the file doesn't exist save new one
+	 */
 	private void LoadConfig() {
 		System.out.println("loading Config initially");
 

@@ -11,13 +11,15 @@ public class Figure {
 	
 	Image image;
 	
-	private FigureType type;
+	public FigureType type;
+	public Direction direction;
 	
 	private int color;
 	
-	public Figure(FigureType type, int color) {
+	public Figure(FigureType type, int color, Direction direction) {
 		this.type = type;
 		this.color = color;
+		this.direction = direction;
 	}
 	
 	private BufferedImage getImage(String filename) {

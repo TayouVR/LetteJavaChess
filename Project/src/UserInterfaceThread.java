@@ -30,14 +30,17 @@ public class UserInterfaceThread extends Thread {
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
+		
+		// Create Panels for all Pages
 		chooseGameType = new ChooseGameTypeScreen(this);
 		preGame = new GameConfigScreen(this);
 		mainMenu = new MainMenu(this);
 		game = new GameScreen(this);
 		
-		
+		// Set Main menu panel
 		setPanel(mainMenu.panel1);
 
+		// Set Window properties
 		window.setTitle("Four Player Chess");
 		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		window.setSize(400, 300);
@@ -45,23 +48,21 @@ public class UserInterfaceThread extends Thread {
 		window.setVisible(true);
 	}
 	
+	/**
+	 * Set Panel as Content Pane
+	 * @param panel panel to set
+	 */
 	public void setPanel(JPanel panel) {
 		window.setContentPane(panel);
 		window.revalidate();
 		window.repaint();
 	}
 	
-	public JPanel CreatePlayFieldForPlayers(int playercount) {
-		JPanel panel = new JPanel();
-		
-		
-		
-		
-		
-		return panel;
-	}
-	
-	public void setApplicationFullscreenMode (Config.FullscreenMode mode) {
+	/**
+	 * Set Fullscreen mode
+	 * @param mode
+	 */
+	public void setApplicationFullscreenMode (FullscreenMode mode) {
 		client.config.setFullscreenMode(mode);
 		System.out.println("Changed Fullscreen mode to " + mode);
 		

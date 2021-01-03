@@ -19,8 +19,8 @@ public class GameScreen {
 
 	public FieldCoordinates[][] felder = new FieldCoordinates[14][14];
 
-
-	//Chessboard Elements
+	private int row;
+	private int column;
 
 
 	public GameScreen(UserInterfaceThread userInterfaceThread) {
@@ -35,17 +35,17 @@ public class GameScreen {
 				if (j > 2 && i < 3 && j < 11 ||
 							 i > 2 && i < 11 ||
 							 j > 2 && i > 10 && j < 11) {
-					felder[i][j] = new FieldCoordinates();
-					felder[i][j].x = i;
-					felder[i][j].y = j;
-					felder[i][j].setBorder(null);
 					if ((i + j) % 2 == 0) {
-						felder[i][j].setBackground(Color.white);
+						felder[i][j] = new FieldCoordinates(this, false);
 
 
 					} else {
-						felder[i][j].setBackground(new Color(100,100,100));
+						felder[i][j] = new FieldCoordinates(this, true);
 					}
+					
+					felder[i][j].x = i;
+					felder[i][j].y = j;
+					felder[i][j].setBorder(null);
 					gamePanel.add(felder[i][j]);
 
 
