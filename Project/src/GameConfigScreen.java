@@ -1,11 +1,10 @@
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class GameConfigScreen {
 	
@@ -54,17 +53,17 @@ public class GameConfigScreen {
 		
 		// Game Time
 		spinner_gameTimeLimit.addChangeListener(e -> {
-			if (check_moveTimeLimit.isSelected()) {
-				userInterfaceThread.client.localGame.properties.perMoveTimer = (int)spinner_gameTimeLimit.getValue();
+			if (check_gameTimeLimit.isSelected()) {
+				userInterfaceThread.client.localGame.properties.fullGameTimer = (int)spinner_gameTimeLimit.getValue();
 			} else {
-				userInterfaceThread.client.localGame.properties.perMoveTimer = -1;
+				userInterfaceThread.client.localGame.properties.fullGameTimer = -1;
 			}
 		});
 		check_gameTimeLimit.addActionListener(e -> {
-			if (check_moveTimeLimit.isSelected()) {
-				userInterfaceThread.client.localGame.properties.perMoveTimer = Integer.parseInt(textField_moveTimeLimit.getText());
+			if (check_gameTimeLimit.isSelected()) {
+				userInterfaceThread.client.localGame.properties.fullGameTimer = (int)spinner_gameTimeLimit.getValue();
 			} else {
-				userInterfaceThread.client.localGame.properties.perMoveTimer = -1;
+				userInterfaceThread.client.localGame.properties.fullGameTimer = -1;
 			}
 		});
 		
@@ -75,6 +74,22 @@ public class GameConfigScreen {
 		startButton.addActionListener(e -> {
 			userInterfaceThread.client.localGame.placeFigures(userInterfaceThread.game);
 			userInterfaceThread.setPanel(userInterfaceThread.game.panel1);
+			userInterfaceThread.game.Timer.setText("Time left:" + Integer.toString(userInterfaceThread.client.localGame.properties.fullGameTimer));
+
+			java.util.Timer countdown = new Timer();
+			countdown.scheduleAtFixedRate(new TimerTask() {
+				int sekunden = userInterfaceThread.client.localGame.properties.fullGameTimer;
+				@Override
+				public void run() {
+					sekunden--;
+					userInterfaceThread.game.Timer.setText("Time left:" + Integer.toString(sekunden));
+					if(sekunden ==0){
+						countdown.cancel();
+					}
+				}
+			},1000,1000);
+
+
 		});
 		
 		

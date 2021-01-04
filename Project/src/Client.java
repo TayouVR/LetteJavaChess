@@ -1,6 +1,7 @@
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+
 public class Client {
 
 	public Config config;
@@ -25,6 +26,8 @@ public class Client {
 		// start UI up
 		userInterfaceThread = new UserInterfaceThread(this);
 		userInterfaceThread.start();
+
+
 
 	}
 	

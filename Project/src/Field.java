@@ -10,6 +10,7 @@ public class Field extends JButton {
     private Move isValidMove;
     
     private GameScreen gameScreen;
+
     
     public Field(GameScreen screen, boolean isBlack) {
         this.isBlack = isBlack;

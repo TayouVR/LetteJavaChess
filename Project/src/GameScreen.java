@@ -17,7 +17,9 @@ public class GameScreen {
 	private JLabel playerName2;
 	private JLabel playerName4;
 	private JPanel buttonPanel;
-	
+	public JLabel Timer;
+
+
 	public Field[][] felder = new Field[14][14];
 	
 	public Field selectedField;
