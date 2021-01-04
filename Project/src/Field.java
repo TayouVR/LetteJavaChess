@@ -144,20 +144,21 @@ public class Field extends JButton {
                 for (Field[] fields: gameScreen.felder) {
                     for (Field field: fields) {
                         if (field != null) {
-                
                             int rowDelta = field.x - x;
                             int colDelta = field.y - y;
-                            
+
                             int rowDeltaAbs = Math.abs(field.x - x);
                             int colDeltaAbs = Math.abs(field.y - y);
-    
+
                             switch (figure.direction) {
                                 case UP -> {
                                     if (field.figure != null) {
-                                        if (rowDelta == -1 && colDeltaAbs == 1) {
-                                            field.setValidMove(true);
-                                        } else {
-                                            field.setValidMove(false);
+                                        if (field.figure.direction != figure.direction) {
+                                            if (rowDelta == -1 && colDeltaAbs == 1) {
+                                                field.setValidMove(true);
+                                            } else {
+                                                field.setValidMove(false);
+                                            }
                                         }
                                     } else {
                                         if (figure.isFirstMove) {
@@ -177,10 +178,12 @@ public class Field extends JButton {
                                 }
                                 case DOWN -> {
                                     if (field.figure != null) {
-                                        if (rowDelta == 1 && colDeltaAbs == 1) {
-                                            field.setValidMove(true);
-                                        } else {
-                                            field.setValidMove(false);
+                                        if (field.figure.direction != figure.direction) {
+                                            if (rowDelta == 1 && colDeltaAbs == 1) {
+                                                field.setValidMove(true);
+                                            } else {
+                                                field.setValidMove(false);
+                                            }
                                         }
                                     } else {
                                         if (figure.isFirstMove) {
@@ -200,10 +203,12 @@ public class Field extends JButton {
                                 }
                                 case LEFT -> {
                                     if (field.figure != null) {
-                                        if (colDelta == -1 && rowDeltaAbs == 1) {
-                                            field.setValidMove(true);
-                                        } else {
-                                            field.setValidMove(false);
+                                        if (field.figure.direction != figure.direction) {
+                                            if (colDelta == -1 && rowDeltaAbs == 1) {
+                                                field.setValidMove(true);
+                                            } else {
+                                                field.setValidMove(false);
+                                            }
                                         }
                                     } else {
                                         if (figure.isFirstMove) {
@@ -223,10 +228,12 @@ public class Field extends JButton {
                                 }
                                 case RIGHT -> {
                                     if (field.figure != null) {
-                                        if (colDelta == 1 && rowDeltaAbs == 1) {
-                                            field.setValidMove(true);
-                                        } else {
-                                            field.setValidMove(false);
+                                        if (field.figure.direction != figure.direction) {
+                                            if (colDelta == 1 && rowDeltaAbs == 1) {
+                                                field.setValidMove(true);
+                                            } else {
+                                                field.setValidMove(false);
+                                            }
                                         }
                                     } else {
                                         if (figure.isFirstMove) {
@@ -245,10 +252,12 @@ public class Field extends JButton {
                                     }
                                 }
                             }
+                            // pawn directions
                         }
                     }
                 }
             }
+            // cases
         }
     }
     
