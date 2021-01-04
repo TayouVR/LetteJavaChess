@@ -55,7 +55,7 @@ public class GameScreen {
 				}
 			}
 		}
-		playfieldSize = userInterfaceThread.window.getSize().height - buttonPanel.getSize().height;
+		playfieldSize = userInterfaceThread.window.getSize().height - buttonPanel.getHeight() - Timer.getFont().getSize();
 		Dimension d = new Dimension(playfieldSize, playfieldSize);
 		gamePanel.setPreferredSize(d);
 		for (Field[] fields: felder) {
