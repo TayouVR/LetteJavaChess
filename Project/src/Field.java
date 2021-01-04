@@ -163,10 +163,14 @@ public class Field extends JButton {
                                         if (figure.isFirstMove) {
                                             if ((rowDelta == -1 || rowDelta == -2) && colDeltaAbs == 0) {
                                                 field.setValidMove(true);
+                                            } else {
+                                                field.setValidMove(false);
                                             }
                                         } else {
                                             if (rowDelta == -1 && colDeltaAbs == 0) {
                                                 field.setValidMove(true);
+                                            } else {
+                                                field.setValidMove(false);
                                             }
                                         }
                                     }
@@ -182,10 +186,14 @@ public class Field extends JButton {
                                         if (figure.isFirstMove) {
                                             if ((rowDelta == 1 || rowDelta == 2) && colDeltaAbs == 0) {
                                                 field.setValidMove(true);
+                                            } else {
+                                                field.setValidMove(false);
                                             }
                                         } else {
                                             if (rowDelta == 1 && colDeltaAbs == 0) {
                                                 field.setValidMove(true);
+                                            } else {
+                                                field.setValidMove(false);
                                             }
                                         }
                                     }
@@ -201,10 +209,14 @@ public class Field extends JButton {
                                         if (figure.isFirstMove) {
                                             if ((colDelta == -1 || colDelta == -2) && rowDeltaAbs == 0) {
                                                 field.setValidMove(true);
+                                            } else {
+                                                field.setValidMove(false);
                                             }
                                         } else {
                                             if (colDelta == -1 && rowDeltaAbs == 0) {
                                                 field.setValidMove(true);
+                                            } else {
+                                                field.setValidMove(false);
                                             }
                                         }
                                     }
@@ -220,10 +232,14 @@ public class Field extends JButton {
                                         if (figure.isFirstMove) {
                                             if ((colDelta == 1 || colDelta == 2) && rowDeltaAbs == 0) {
                                                 field.setValidMove(true);
+                                            } else {
+                                                field.setValidMove(false);
                                             }
                                         } else {
                                             if (colDelta == 1 && rowDeltaAbs == 0) {
                                                 field.setValidMove(true);
+                                            } else {
+                                                field.setValidMove(false);
                                             }
                                         }
                                     }
