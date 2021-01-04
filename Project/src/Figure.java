@@ -72,7 +72,7 @@ public class Figure {
 		return null;
 	}
 	
-	public ImageIcon getSingleImage() {
+	public ImageIcon getSingleImage(int targetResolution) {
 		BufferedImage srcImage = getImage("chess_2.png");
 		int oneFigureSize = srcImage.getWidth()/6;
 		
@@ -99,7 +99,7 @@ public class Figure {
 		}
 		
 		
-		return new ImageIcon(srcImage.getScaledInstance(64, 64, 1));
+		return new ImageIcon(srcImage.getScaledInstance(targetResolution, targetResolution, 1));
 	}
 	
 	private BufferedImage cropImage(BufferedImage src, Rectangle rect) {

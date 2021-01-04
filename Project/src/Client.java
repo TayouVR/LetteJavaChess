@@ -45,9 +45,9 @@ public class Client {
 		System.out.println("loading Config initially");
 
 		if (Files.exists(Path.of(configFilePath))) {
-			config.LoadConfig();
+			config.loadConfig();
 		} else {
-			config.SaveConfig();
+			config.saveConfig();
 		}
 	}
 }

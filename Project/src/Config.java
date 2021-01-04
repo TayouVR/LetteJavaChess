@@ -91,7 +91,7 @@ public class Config {
 		jsonObject.put("fullscreenMode", fullscreenMode.getValue());
 	}
 
-	public void LoadConfig() {
+	public void loadConfig() {
 		System.out.println("loading Config");
 
 		try {
@@ -110,7 +110,7 @@ public class Config {
 		}
 	}
 
-	public void SaveConfig() {
+	public void saveConfig() {
 		System.out.println("saving Config");
 
 		try {

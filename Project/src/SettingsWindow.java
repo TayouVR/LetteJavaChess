@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class SettingsWindow {
 
@@ -66,7 +64,7 @@ public class SettingsWindow {
 				}
 				uiThread.window.setSize(Integer.parseInt(size[0]), Integer.parseInt(size[1]));
 				uiThread.client.config.setResolution(Integer.parseInt(size[0]), Integer.parseInt(size[1]));
-				uiThread.client.config.SaveConfig();
+				uiThread.client.config.saveConfig();
 			}
 		});
 
@@ -81,7 +79,7 @@ public class SettingsWindow {
 			JComboBox cb = (JComboBox) e.getSource();
 			String resolution = (String) cb.getSelectedItem();
 			//window.set();
-			uiThread.client.config.SaveConfig();
+			uiThread.client.config.saveConfig();
 		});
 		
 		
@@ -97,7 +95,7 @@ public class SettingsWindow {
 			window.requestFocusInWindow();
 			window.toFront();
 			window.repaint();
-			uiThread.client.config.SaveConfig();
+			uiThread.client.config.saveConfig();
 		});
 	}
 

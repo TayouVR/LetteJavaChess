@@ -1,8 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 public class UserInterfaceThread extends Thread {
 	
@@ -39,7 +38,30 @@ public class UserInterfaceThread extends Thread {
 		
 		// Set Main menu panel
 		setPanel(mainMenu.panel1);
-
+		
+		window.addComponentListener(new ComponentListener() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				client.config.setResolution(window.getWidth(), window.getHeight());
+				client.config.saveConfig();
+			}
+			
+			@Override
+			public void componentMoved(ComponentEvent e) {
+			
+			}
+			
+			@Override
+			public void componentShown(ComponentEvent e) {
+			
+			}
+			
+			@Override
+			public void componentHidden(ComponentEvent e) {
+			
+			}
+		});
+		
 		// Set Window properties
 		window.setTitle("Four Player Chess");
 		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
