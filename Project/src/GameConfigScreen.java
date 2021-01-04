@@ -22,17 +22,95 @@ public class GameConfigScreen {
 	private JSpinner spinner_moveTimeLimit;
 	private JSpinner spinner_gameTimeLimit;
 	private JPanel mainPanel;
-	
+	private JTextField PlayerName1;
+	private JTextField PlayerName2;
+	private JTextField PlayerName3;
+	private JTextField PlayerName4;
+
 	public GameConfigScreen(UserInterfaceThread userInterfaceThread) {
 		this.userInterfaceThread = userInterfaceThread;
 		
 		mainPanel.setBorder(new TitledBorder(new LineBorder(SystemColor.windowBorder), "Game Config"));
-		
+
 		// Player Count
 		slider_playerCount.addChangeListener(e -> {
 			JSlider slider = (JSlider) e.getSource();
 			userInterfaceThread.client.localGame.properties.playerCount = slider.getValue();
 			slider_playerCount.setValue(slider.getValue());
+			if(slider.getValue() == 1){
+
+				PlayerName1.setVisible(true);
+				PlayerName2.setVisible(false);
+				PlayerName3.setVisible(false);
+				PlayerName4.setVisible(false);
+
+			}
+			else if (slider.getValue() == 2){
+
+				PlayerName1.setVisible(true);
+				PlayerName2.setVisible(true);
+				PlayerName3.setVisible(false);
+				PlayerName4.setVisible(false);
+
+			}
+			else if(slider.getValue() == 3){
+
+				PlayerName1.setVisible(true);
+				PlayerName2.setVisible(true);
+				PlayerName3.setVisible(true);
+				PlayerName4.setVisible(false);
+
+			}
+			else if(slider.getValue() == 4){
+
+				PlayerName1.setVisible(true);
+				PlayerName2.setVisible(true);
+				PlayerName3.setVisible(true);
+				PlayerName4.setVisible(true);
+
+			}
+			else{
+
+				PlayerName1.setVisible(false);
+				PlayerName2.setVisible(false);
+				PlayerName3.setVisible(false);
+				PlayerName4.setVisible(false);
+
+			}
+
+			/*switch(userInterfaceThread.client.localGame.properties.playerCount){
+				case 0:
+					if(slider.getValue() == 1){
+
+						PlayerName1.setVisible(true);
+
+					}
+					break;
+				case 1:
+					if(slider.getValue() == 2){
+
+						PlayerName2.setVisible(true);
+
+					}
+					break;
+				case 2:
+					if(slider.getValue() == 3){
+
+						PlayerName3.setVisible(true);
+
+					}
+					break;
+				case 3:
+					if(slider.getValue() == 4){
+
+						PlayerName4.setVisible(true);
+
+					}
+					break;
+				default:
+					System.out.println("Zu wenig/viele spieler");
+					break;
+			}*/
 		});
 		
 		// Move Time
