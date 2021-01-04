@@ -18,6 +18,7 @@ public class GameScreen {
 	private JLabel playerName4;
 	private JPanel buttonPanel;
 	public JLabel Timer;
+	private JLabel Playertime;
 
 
 	public Field[][] felder = new Field[14][14];
