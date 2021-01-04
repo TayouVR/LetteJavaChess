@@ -7,7 +7,7 @@ public class Field extends JButton {
     private Figure figure;
     
     public boolean isBlack;
-    private boolean isValidMove;
+    private Move isValidMove;
     
     private GameScreen gameScreen;
     
@@ -16,14 +16,14 @@ public class Field extends JButton {
         setBackground(isBlack ? new Color(100,100,100) : Color.WHITE);
         gameScreen = screen;
         addActionListener(e -> {
-            if (isValidMove && gameScreen.selectedField != null) {
+            if (isValidMove == Move.MOVE || isValidMove == Move.ATTACK && gameScreen.selectedField != null) {
                 setFigure(gameScreen.selectedField.figure);
                 gameScreen.selectedField.figure.isFirstMove = false;
                 gameScreen.selectedField.setFigure(null);
                 for (Field[] fields: gameScreen.felder) {
                     for (Field field: fields) {
                         if (field != null) {
-                            field.setValidMove(false);
+                            field.setValidMove(Move.DEFAULT);
                         }
                     }
                 }
@@ -49,224 +49,23 @@ public class Field extends JButton {
     
     public void setMoveable() {
         gameScreen.selectedField = this;
-        switch (figure.type) {
-            case KING -> {
-                for (Field[] fields: gameScreen.felder) {
-                    for (Field field: fields) {
-                        if (field != null) {
-                
-                            int rowDelta = Math.abs(field.x - x);
-                            int colDelta = Math.abs(field.y - y);
-                
-                            if ((rowDelta == 1 && colDelta <= 1) || (colDelta == 1 && rowDelta <= 1)) {
-                                field.setValidMove(true);
-                            } else {
-                                field.setValidMove(false);
-                            }
-                        }
-                    }
-                }
-            }
-            case QUEEN -> {
-                for (Field[] fields: gameScreen.felder) {
-                    for (Field field: fields) {
-                        if (field != null) {
-                
-                            int rowDelta = Math.abs(field.x - x);
-                            int colDelta = Math.abs(field.y - y);
-    
-                            // diagonal & straight
-                            if (rowDelta == colDelta && rowDelta != 0) {
-                                field.setValidMove(true);
-                            } else if ((rowDelta == 0 && colDelta != 0) || (colDelta == 0 && rowDelta != 0)) {
-                                field.setValidMove(true);
-                            } else {
-                                field.setValidMove(false);
-                            }
-                        }
-                    }
-                }
-            }
-            case ROOK -> {
-                for (Field[] fields: gameScreen.felder) {
-                    for (Field field: fields) {
-                        if (field != null) {
-                
-                            int rowDelta = Math.abs(field.x - x);
-                            int colDelta = Math.abs(field.y - y);
-    
-                            // straight
-                            if ((rowDelta == 0 && colDelta != 0) || (colDelta == 0 && rowDelta != 0)) {
-                                field.setValidMove(true);
-                            } else {
-                                field.setValidMove(false);
-                            }
-                        }
-                    }
-                }
-            }
-            case BISHOP -> {
-                for (Field[] fields: gameScreen.felder) {
-                    for (Field field: fields) {
-                        if (field != null) {
-                
-                            int rowDelta = Math.abs(field.x - x);
-                            int colDelta = Math.abs(field.y - y);
-    
-                            // diagonal
-                            if (rowDelta == colDelta && rowDelta != 0) {
-                                field.setValidMove(true);
-                            } else {
-                                field.setValidMove(false);
-                            }
-                        }
-                    }
-                }
-            }
-            case KNIGHT -> {
-                for (Field[] fields: gameScreen.felder) {
-                    for (Field field: fields) {
-                        if (field != null) {
-                            
-                            int rowDelta = Math.abs(field.x - x);
-                            int colDelta = Math.abs(field.y - y);
-    
-                            if (((rowDelta == 1) && (colDelta == 2)) || ((rowDelta == 2) && (colDelta == 1))) {
-                                field.setValidMove(true);
-                            } else {
-                                field.setValidMove(false);
-                            }
-                        }
-                    }
-                }
-            }
-            case PAWN -> {
-                for (Field[] fields: gameScreen.felder) {
-                    for (Field field: fields) {
-                        if (field != null) {
-                            int rowDelta = field.x - x;
-                            int colDelta = field.y - y;
-
-                            int rowDeltaAbs = Math.abs(field.x - x);
-                            int colDeltaAbs = Math.abs(field.y - y);
-
-                            switch (figure.direction) {
-                                case UP -> {
-                                    if (field.figure != null) {
-                                        if (field.figure.direction != figure.direction) {
-                                            if (rowDelta == -1 && colDeltaAbs == 1) {
-                                                field.setValidMove(true);
-                                            } else {
-                                                field.setValidMove(false);
-                                            }
-                                        }
-                                    } else {
-                                        if (figure.isFirstMove) {
-                                            if ((rowDelta == -1 || rowDelta == -2) && colDeltaAbs == 0) {
-                                                field.setValidMove(true);
-                                            } else {
-                                                field.setValidMove(false);
-                                            }
-                                        } else {
-                                            if (rowDelta == -1 && colDeltaAbs == 0) {
-                                                field.setValidMove(true);
-                                            } else {
-                                                field.setValidMove(false);
-                                            }
-                                        }
-                                    }
-                                }
-                                case DOWN -> {
-                                    if (field.figure != null) {
-                                        if (field.figure.direction != figure.direction) {
-                                            if (rowDelta == 1 && colDeltaAbs == 1) {
-                                                field.setValidMove(true);
-                                            } else {
-                                                field.setValidMove(false);
-                                            }
-                                        }
-                                    } else {
-                                        if (figure.isFirstMove) {
-                                            if ((rowDelta == 1 || rowDelta == 2) && colDeltaAbs == 0) {
-                                                field.setValidMove(true);
-                                            } else {
-                                                field.setValidMove(false);
-                                            }
-                                        } else {
-                                            if (rowDelta == 1 && colDeltaAbs == 0) {
-                                                field.setValidMove(true);
-                                            } else {
-                                                field.setValidMove(false);
-                                            }
-                                        }
-                                    }
-                                }
-                                case LEFT -> {
-                                    if (field.figure != null) {
-                                        if (field.figure.direction != figure.direction) {
-                                            if (colDelta == -1 && rowDeltaAbs == 1) {
-                                                field.setValidMove(true);
-                                            } else {
-                                                field.setValidMove(false);
-                                            }
-                                        }
-                                    } else {
-                                        if (figure.isFirstMove) {
-                                            if ((colDelta == -1 || colDelta == -2) && rowDeltaAbs == 0) {
-                                                field.setValidMove(true);
-                                            } else {
-                                                field.setValidMove(false);
-                                            }
-                                        } else {
-                                            if (colDelta == -1 && rowDeltaAbs == 0) {
-                                                field.setValidMove(true);
-                                            } else {
-                                                field.setValidMove(false);
-                                            }
-                                        }
-                                    }
-                                }
-                                case RIGHT -> {
-                                    if (field.figure != null) {
-                                        if (field.figure.direction != figure.direction) {
-                                            if (colDelta == 1 && rowDeltaAbs == 1) {
-                                                field.setValidMove(true);
-                                            } else {
-                                                field.setValidMove(false);
-                                            }
-                                        }
-                                    } else {
-                                        if (figure.isFirstMove) {
-                                            if ((colDelta == 1 || colDelta == 2) && rowDeltaAbs == 0) {
-                                                field.setValidMove(true);
-                                            } else {
-                                                field.setValidMove(false);
-                                            }
-                                        } else {
-                                            if (colDelta == 1 && rowDeltaAbs == 0) {
-                                                field.setValidMove(true);
-                                            } else {
-                                                field.setValidMove(false);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            // pawn directions
-                        }
-                    }
-                }
-            }
-            // cases
-        }
+        figure.setMovableFields(gameScreen, this);
     }
     
-    public void setValidMove(boolean state) {
+    public void setValidMove(Move state) {
         isValidMove = state;
-        if (state) {
-            setBackground(Color.CYAN);
+        if (state == Move.MOVE) {
+            setBackground(isBlack ? new Color(25, 225, 225) : new Color(50, 255, 255));
+        } else if (state == Move.ATTACK) {
+            setBackground(new Color(255, isBlack ? 25 : 75, isBlack ? 25 : 75));
         } else {
             setBackground(isBlack ? new Color(100,100,100) : Color.WHITE);
         }
+    }
+    
+    public enum Move {
+        DEFAULT,
+        MOVE,
+        ATTACK
     }
 }
