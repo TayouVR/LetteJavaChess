@@ -8,8 +8,10 @@ public class Field extends JButton {
     
     public boolean isBlack;
     private boolean isValidMove;
+
     
     private GameScreen gameScreen;
+
     
     public Field(GameScreen screen, boolean isBlack) {
         this.isBlack = isBlack;

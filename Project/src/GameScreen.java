@@ -16,12 +16,17 @@ public class GameScreen {
 	private JLabel playerName3;
 	private JLabel playerName2;
 	private JLabel playerName4;
+	public JLabel Timer;
+
 
 	public Field[][] felder = new Field[14][14];
 	
 	public Field selectedField;
 
 	public GameScreen(UserInterfaceThread userInterfaceThread) {
+
+
+
 		this.userInterfaceThread = userInterfaceThread;
 
 		btn_leaveGame.addActionListener(e -> {
