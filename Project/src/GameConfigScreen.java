@@ -18,6 +18,7 @@ public class GameConfigScreen {
 	private JSlider slider_playerCount;
 	private JSpinner spinner_moveTimeLimit;
 	private JSpinner spinner_gameTimeLimit;
+	private JSpinner spinner_gameTimeWarning;
 	private JPanel mainPanel;
 	private JTextField textField_player0Name;
 	private JTextField textField_player1Name;
@@ -31,7 +32,7 @@ public class GameConfigScreen {
 	private JLabel label_player2;
 	private JLabel label_player3;
 	private JLabel label_player4;
-	
+
 	public GameConfigScreen(UserInterfaceThread userInterfaceThread) {
 		this.userInterfaceThread = userInterfaceThread;
 		
@@ -96,7 +97,13 @@ public class GameConfigScreen {
 		spinner_gameTimeLimit.addChangeListener(e -> {
 			userInterfaceThread.client.localGame.properties.fullGameTimer = (int)spinner_gameTimeLimit.getValue();
 		});
-		
+
+		//Warning Time
+		spinner_gameTimeWarning.addChangeListener(e -> {
+				userInterfaceThread.client.localGame.properties.warningTimer = (int)spinner_gameTimeLimit.getValue();
+		});
+
+
 		// Buttons
 		backButton.addActionListener(e -> {
 			userInterfaceThread.setPanel(userInterfaceThread.chooseGameType.panel1);
@@ -140,10 +147,49 @@ public class GameConfigScreen {
 				userInterfaceThread.game.Timer.setText("No Time Limit");
 			}
 
+			/*if (userInterfaceThread.client.localGame.properties.perMoveTimer != 0) {
+				userInterfaceThread.game.Timer.setText("Time left:" + userInterfaceThread.client.localGame.properties.perMoveTimer);
 
+
+				java.util.Timer moveEnd = new Timer();
+				moveEnd.scheduleAtFixedRate(new TimerTask() {
+					int sekunden = userInterfaceThread.client.localGame.properties.perMoveTimer;
+					@Override
+					public void run() {
+						sekunden--;
+						userInterfaceThread.game.Timer.setText("Time left:" + sekunden);
+						if(sekunden <= 0){
+							moveEnd.cancel();
+						}
+					}
+				},1000,1000);
+			} else {
+				userInterfaceThread.game.Timer.setText("No Move Time Limit");
+			}
+
+			if (userInterfaceThread.client.localGame.properties.warningTimer != 0) {
+				userInterfaceThread.game.Timer.setText("Warning only " + userInterfaceThread.client.localGame.properties.warningTimer + " left.");
+
+
+				java.util.Timer warningTime = new Timer();
+				warningTime.scheduleAtFixedRate(new TimerTask() {
+					int sekunden = userInterfaceThread.client.localGame.properties.warningTimer;
+					@Override
+					public void run() {
+						sekunden--;
+						userInterfaceThread.game.Timer.setText("Warning only " + sekunden + " left.");
+						if(sekunden <= 0){
+							warningTime.cancel();
+						}
+					}
+				},1000,1000);
+			} else {
+				userInterfaceThread.game.Timer.setText("No Warning.");
+			}
+			*/
 		});
-		
-		
+
+
 	}
 	
 	private void setUIStyles() {
