@@ -1,7 +1,7 @@
 public class King extends Figure {
 	
-	public King(int color, Direction direction) {
-		super(FigureType.KING, color, direction);
+	public King(int color, int associatedPlayerId, Direction direction) {
+		super(FigureType.KING, direction, associatedPlayerId, color);
 	}
 	
 	@Override

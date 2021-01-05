@@ -79,7 +79,7 @@
         <border type="none"/>
         <children>
           <component id="5689b" class="javax.swing.JLabel" binding="playerName2">
-            <constraints border-constraint="North"/>
+            <constraints border-constraint="South"/>
             <properties>
               <font size="36"/>
               <horizontalAlignment value="2"/>
@@ -87,7 +87,7 @@
             </properties>
           </component>
           <component id="8dd9e" class="javax.swing.JLabel" binding="playerName4">
-            <constraints border-constraint="South"/>
+            <constraints border-constraint="North"/>
             <properties>
               <font size="36"/>
               <horizontalAlignment value="2"/>

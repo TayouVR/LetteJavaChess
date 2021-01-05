@@ -1,7 +1,7 @@
 public class Pawn extends Figure {
 	
-	public Pawn(int color, Direction direction) {
-		super(FigureType.PAWN, color, direction);
+	public Pawn(int color, int associatedPlayerId, Direction direction) {
+		super(FigureType.PAWN, direction, associatedPlayerId, color);
 	}
 	
 	@Override

@@ -1,3 +1,4 @@
+import javax.swing.*;
 
 public class Player {
 	
@@ -5,4 +6,5 @@ public class Player {
 	public int colorIndex;
 	public String skin;
 	
+	public JLabel playerNameLabel;
 }

@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class Bishop extends Figure {
 	
-	public Bishop(int color, Direction direction) {
-		super(FigureType.BISHOP, color, direction);
+	public Bishop(int color, int associatedPlayerId, Direction direction) {
+		super(FigureType.BISHOP, direction, associatedPlayerId, color);
 	}
 	
 	@Override

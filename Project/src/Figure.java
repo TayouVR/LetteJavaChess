@@ -14,15 +14,17 @@ public class Figure {
 	
 	public FigureType type;
 	public Direction direction;
+	public int associatedPlayerId;
 	
 	public boolean isFirstMove = true;
 	
 	private int color;
 	
-	public Figure(FigureType type, int color, Direction direction) {
+	public Figure(FigureType type, Direction direction, int associatedPlayerId, int color) {
 		this.type = type;
-		this.color = color;
 		this.direction = direction;
+		this.associatedPlayerId = associatedPlayerId;
+		this.color = color;
 	}
 	
 	public void setMovableFields(GameScreen screen, Field srcField) {
