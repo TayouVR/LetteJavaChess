@@ -147,8 +147,8 @@ public class GameConfigScreen {
 				userInterfaceThread.game.Timer.setText("No Time Limit");
 			}
 
-			/*if (userInterfaceThread.client.localGame.properties.perMoveTimer != 0) {
-				userInterfaceThread.game.Timer.setText("Time left:" + userInterfaceThread.client.localGame.properties.perMoveTimer);
+			if (userInterfaceThread.client.localGame.properties.perMoveTimer != 0) {
+				userInterfaceThread.game.Playertime.setText("Time left:" + userInterfaceThread.client.localGame.properties.perMoveTimer);
 
 
 				java.util.Timer moveEnd = new Timer();
@@ -157,18 +157,20 @@ public class GameConfigScreen {
 					@Override
 					public void run() {
 						sekunden--;
-						userInterfaceThread.game.Timer.setText("Time left:" + sekunden);
+						userInterfaceThread.game.Playertime.setText("Time left:" + sekunden);
 						if(sekunden <= 0){
 							moveEnd.cancel();
 						}
 					}
 				},1000,1000);
 			} else {
-				userInterfaceThread.game.Timer.setText("No Move Time Limit");
+				userInterfaceThread.game.Playertime.setText("No Move Time Limit");
 			}
 
+			//Muss nocmal überarbeitet werden
+			/*
 			if (userInterfaceThread.client.localGame.properties.warningTimer != 0) {
-				userInterfaceThread.game.Timer.setText("Warning only " + userInterfaceThread.client.localGame.properties.warningTimer + " left.");
+				userInterfaceThread.game.WarningTimer.setText("Warning only " + userInterfaceThread.client.localGame.properties.warningTimer + " left.");
 
 
 				java.util.Timer warningTime = new Timer();
@@ -177,16 +179,23 @@ public class GameConfigScreen {
 					@Override
 					public void run() {
 						sekunden--;
-						userInterfaceThread.game.Timer.setText("Warning only " + sekunden + " left.");
+						userInterfaceThread.game.WarningTimer.setText("Warning only " + sekunden + " left.");
 						if(sekunden <= 0){
 							warningTime.cancel();
+						}
+
+						if(userInterfaceThread.game.Playertime ==  userInterfaceThread.game.WarningTimer){
+
+							userInterfaceThread.game.WarningTimer.setVisible(true);
+
 						}
 					}
 				},1000,1000);
 			} else {
-				userInterfaceThread.game.Timer.setText("No Warning.");
+				userInterfaceThread.game.WarningTimer.setText("No Warning.");
 			}
-			*/
+*/
+
 		});
 
 
