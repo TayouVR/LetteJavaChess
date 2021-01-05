@@ -27,11 +27,15 @@ public class GameConfigScreen {
 	private JComboBox comboBox_player1color;
 	private JComboBox comboBox_player2color;
 	private JComboBox comboBox_player3color;
+	private JLabel label_player1;
+	private JLabel label_player2;
+	private JLabel label_player3;
+	private JLabel label_player4;
 	
 	public GameConfigScreen(UserInterfaceThread userInterfaceThread) {
 		this.userInterfaceThread = userInterfaceThread;
 		
-		mainPanel.setBorder(new TitledBorder(new LineBorder(SystemColor.windowBorder), "Game Config"));
+		setUIStyles();
 
 		// Player Count
 		slider_playerCount.addChangeListener(e -> {
@@ -49,19 +53,13 @@ public class GameConfigScreen {
 			comboBox_player1color.setVisible(sliderValue >= 2);
 			comboBox_player2color.setVisible(sliderValue >= 3);
 			comboBox_player3color.setVisible(sliderValue >= 4);
-
+			
+			label_player1.setVisible(sliderValue >= 1);
+			label_player2.setVisible(sliderValue >= 2);
+			label_player3.setVisible(sliderValue >= 3);
+			label_player4.setVisible(sliderValue >= 4);
 			
 		});
-		
-		/*ActionListener actionListener = e -> {
-			JTextField tf = (JTextField)e.getSource();
-			System.out.println(tf.getName());
-		};
-		
-		textField_player0Name.addActionListener(actionListener);
-		textField_player1Name.addActionListener(actionListener);
-		textField_player2Name.addActionListener(actionListener);
-		textField_player3Name.addActionListener(actionListener);*/
 		
 		String[] availableColorOptions = {"White", "Black", "Dark Grey", "Light Grey", "Pink", "Red", "Orange", "Yellow", "Green", "Blue", "Cyan", "Purple"};
 		
@@ -75,6 +73,18 @@ public class GameConfigScreen {
 		comboBox_player1color.setSelectedIndex(1);
 		comboBox_player2color.setSelectedIndex(10);
 		comboBox_player3color.setSelectedIndex(11);
+		/*
+		ActionListener colorActionListener = e -> {
+			comboBox_player0color.getItemAt(0);
+			comboBox_player1color.addActionListener(colorActionListener);
+			comboBox_player2color.addActionListener(colorActionListener);
+			comboBox_player3color.addActionListener(colorActionListener);
+		};
+		
+		comboBox_player0color.addActionListener(colorActionListener);
+		comboBox_player1color.addActionListener(colorActionListener);
+		comboBox_player2color.addActionListener(colorActionListener);
+		comboBox_player3color.addActionListener(colorActionListener);*/
 		
 		
 		// Move Time
@@ -105,10 +115,10 @@ public class GameConfigScreen {
 			userInterfaceThread.game.playerName3.setVisible(playerCount >= 3);
 			userInterfaceThread.game.playerName4.setVisible(playerCount >= 4);
 			
-			userInterfaceThread.game.playerName1.setText(textField_player0Name.getText());
-			userInterfaceThread.game.playerName2.setText(textField_player1Name.getText());
-			userInterfaceThread.game.playerName3.setText(textField_player2Name.getText());
-			userInterfaceThread.game.playerName4.setText(textField_player3Name.getText());
+			userInterfaceThread.game.playerName1.setText(!textField_player0Name.getText().equals("") ? textField_player0Name.getText() : "Unnamed 1");
+			userInterfaceThread.game.playerName2.setText(!textField_player1Name.getText().equals("") ? textField_player1Name.getText() : "Unnamed 2");
+			userInterfaceThread.game.playerName3.setText(!textField_player2Name.getText().equals("") ? textField_player2Name.getText() : "Unnamed 3");
+			userInterfaceThread.game.playerName4.setText(!textField_player3Name.getText().equals("") ? textField_player3Name.getText() : "Unnamed 4");
 			
 			userInterfaceThread.game.Timer.setText("Time left:" + Integer.toString(userInterfaceThread.client.localGame.properties.fullGameTimer));
 
@@ -128,6 +138,17 @@ public class GameConfigScreen {
 
 		});
 		
+		
+	}
+	
+	private void setUIStyles() {
+		spinner_moveTimeLimit.setBorder(new LineBorder(spinner_moveTimeLimit.getBackground().darker()));
+		spinner_gameTimeLimit.setBorder(new LineBorder(spinner_moveTimeLimit.getBackground().darker()));
+		mainPanel.setBorder(new TitledBorder(new LineBorder(SystemColor.windowBorder), "Game Config"));
+		textField_player0Name.setBorder(new LineBorder(spinner_moveTimeLimit.getBackground().darker()));
+		textField_player1Name.setBorder(new LineBorder(spinner_moveTimeLimit.getBackground().darker()));
+		textField_player2Name.setBorder(new LineBorder(spinner_moveTimeLimit.getBackground().darker()));
+		textField_player3Name.setBorder(new LineBorder(spinner_moveTimeLimit.getBackground().darker()));
 		
 	}
 }

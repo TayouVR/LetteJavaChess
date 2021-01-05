@@ -155,7 +155,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="424b0" class="javax.swing.JLabel">
+              <component id="424b0" class="javax.swing.JLabel" binding="label_player1">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -198,7 +198,7 @@
                   <text value="time limit for game"/>
                 </properties>
               </component>
-              <component id="bb0ef" class="javax.swing.JLabel">
+              <component id="bb0ef" class="javax.swing.JLabel" binding="label_player2">
                 <constraints>
                   <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -206,7 +206,7 @@
                   <text value="Player 2"/>
                 </properties>
               </component>
-              <component id="54c44" class="javax.swing.JLabel">
+              <component id="54c44" class="javax.swing.JLabel" binding="label_player3">
                 <constraints>
                   <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -214,7 +214,7 @@
                   <text value="Player 3"/>
                 </properties>
               </component>
-              <component id="f86a6" class="javax.swing.JLabel">
+              <component id="f86a6" class="javax.swing.JLabel" binding="label_player4">
                 <constraints>
                   <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
