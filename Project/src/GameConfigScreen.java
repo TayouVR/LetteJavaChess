@@ -120,20 +120,25 @@ public class GameConfigScreen {
 			userInterfaceThread.game.playerName3.setText(!textField_player2Name.getText().equals("") ? textField_player2Name.getText() : "Unnamed 3");
 			userInterfaceThread.game.playerName4.setText(!textField_player3Name.getText().equals("") ? textField_player3Name.getText() : "Unnamed 4");
 			
-			userInterfaceThread.game.Timer.setText("Time left:" + Integer.toString(userInterfaceThread.client.localGame.properties.fullGameTimer));
-
-			java.util.Timer countdown = new Timer();
-			countdown.scheduleAtFixedRate(new TimerTask() {
-				int sekunden = userInterfaceThread.client.localGame.properties.fullGameTimer;
-				@Override
-				public void run() {
-					sekunden--;
-					userInterfaceThread.game.Timer.setText("Time left:" + Integer.toString(sekunden));
-					if(sekunden ==0){
-						countdown.cancel();
+			if (userInterfaceThread.client.localGame.properties.fullGameTimer != 0) {
+				userInterfaceThread.game.Timer.setText("Time left:" + userInterfaceThread.client.localGame.properties.fullGameTimer);
+				
+				
+				java.util.Timer countdown = new Timer();
+				countdown.scheduleAtFixedRate(new TimerTask() {
+					int sekunden = userInterfaceThread.client.localGame.properties.fullGameTimer;
+					@Override
+					public void run() {
+						sekunden--;
+						userInterfaceThread.game.Timer.setText("Time left:" + sekunden);
+						if(sekunden <= 0){
+							countdown.cancel();
+						}
 					}
-				}
-			},1000,1000);
+				},1000,1000);
+			} else {
+				userInterfaceThread.game.Timer.setText("No Time Limit");
+			}
 
 
 		});
