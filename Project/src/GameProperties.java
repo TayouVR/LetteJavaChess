@@ -8,5 +8,8 @@ public class GameProperties {
 	
 	public boolean hasMoveTimer; 				// whether or not moves have a time limit
 	public int perMoveTimer; 					// maximum time per move
+
+	public boolean hasWarningTimer;				// whether or not theres a Warning for the Time
+	public int warningTimer;					// Time when the Warning pops up
 	
 }
