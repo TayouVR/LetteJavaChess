@@ -12,10 +12,10 @@ public class GameScreen {
 
 	//chessboard elements
 	private JPanel gamePanel;
-	private JLabel playerName1;
-	private JLabel playerName3;
-	private JLabel playerName2;
-	private JLabel playerName4;
+	public JLabel playerName1;
+	public JLabel playerName3;
+	public JLabel playerName2;
+	public JLabel playerName4;
 	private JPanel buttonPanel;
 	public JLabel Timer;
 	private JLabel Playertime;
