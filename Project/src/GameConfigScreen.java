@@ -2,7 +2,6 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,10 +19,10 @@ public class GameConfigScreen {
 	private JSpinner spinner_gameTimeLimit;
 	private JSpinner spinner_gameTimeWarning;
 	private JPanel mainPanel;
-	private JTextField textField_player0Name;
-	private JTextField textField_player1Name;
-	private JTextField textField_player2Name;
-	private JTextField textField_player3Name;
+	public JTextField textField_player0Name;
+	public JTextField textField_player1Name;
+	public JTextField textField_player2Name;
+	public JTextField textField_player3Name;
 	private JComboBox comboBox_player0color;
 	private JComboBox comboBox_player1color;
 	private JComboBox comboBox_player2color;
@@ -109,23 +108,12 @@ public class GameConfigScreen {
 			userInterfaceThread.setPanel(userInterfaceThread.chooseGameType.panel1);
 		});
 		startButton.addActionListener(e -> {
-			userInterfaceThread.client.localGame.placeFigures(userInterfaceThread.game,
+			userInterfaceThread.client.localGame.initializeGame(userInterfaceThread.game,
 				comboBox_player0color.getSelectedIndex(),
 				comboBox_player1color.getSelectedIndex(),
 				comboBox_player2color.getSelectedIndex(),
 				comboBox_player3color.getSelectedIndex());
 			userInterfaceThread.setPanel(userInterfaceThread.game.panel1);
-			
-			int playerCount = userInterfaceThread.client.localGame.properties.playerCount;
-			userInterfaceThread.game.playerName1.setVisible(playerCount >= 1);
-			userInterfaceThread.game.playerName2.setVisible(playerCount >= 2);
-			userInterfaceThread.game.playerName3.setVisible(playerCount >= 3);
-			userInterfaceThread.game.playerName4.setVisible(playerCount >= 4);
-			
-			userInterfaceThread.game.playerName1.setText(!textField_player0Name.getText().equals("") ? textField_player0Name.getText() : "Unnamed 1");
-			userInterfaceThread.game.playerName2.setText(!textField_player1Name.getText().equals("") ? textField_player1Name.getText() : "Unnamed 2");
-			userInterfaceThread.game.playerName3.setText(!textField_player2Name.getText().equals("") ? textField_player2Name.getText() : "Unnamed 3");
-			userInterfaceThread.game.playerName4.setText(!textField_player3Name.getText().equals("") ? textField_player3Name.getText() : "Unnamed 4");
 			
 			if (userInterfaceThread.client.localGame.properties.fullGameTimer != 0) {
 				userInterfaceThread.game.Timer.setText("Time left:" + userInterfaceThread.client.localGame.properties.fullGameTimer);

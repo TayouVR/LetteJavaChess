@@ -38,7 +38,9 @@ public class Field extends JButton {
                         }
                     }
                 }
-            } else if (figure != null) {
+                screen.setAllFieldsDeselected();
+                screen.userInterfaceThread.client.localGame.nextPlayerTurn();
+            } else if (figure != null && screen.userInterfaceThread.client.localGame.getCurrentPlayerTurn() == figure.associatedPlayerId) {
                 setMoveable();
             }
         });

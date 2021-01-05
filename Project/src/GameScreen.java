@@ -33,6 +33,8 @@ public class GameScreen {
 		btn_leaveGame.addActionListener(e -> {
 			userInterfaceThread.setPanel(userInterfaceThread.chooseGameType.panel1);
 		});
+		
+		btn_skipMove.addActionListener(e -> userInterfaceThread.client.localGame.nextPlayerTurn());
 
 		//swing ui designer gui form
 		gamePanel.setLayout(new GridLayout(14,14));
@@ -76,5 +78,15 @@ public class GameScreen {
 	
 	public Field getFigureFromPosition(int x, int y) {
 		return felder[x][y];
+	}
+	
+	public void setAllFieldsDeselected() {
+		for (Field[] fields: felder) {
+			for (Field field: fields) {
+				if (field != null) {
+					field.setValidMove(Field.Move.DEFAULT);
+				}
+			}
+		}
 	}
 }

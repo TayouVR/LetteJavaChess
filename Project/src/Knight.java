@@ -1,7 +1,7 @@
 public class Knight extends Figure {
 	
-	public Knight(int color, Direction direction) {
-		super(FigureType.KNIGHT, color, direction);
+	public Knight(int color, int associatedPlayerId, Direction direction) {
+		super(FigureType.KNIGHT, direction, associatedPlayerId, color);
 	}
 	
 	@Override

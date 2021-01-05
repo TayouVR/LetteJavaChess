@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class Queen extends Figure {
 	
-	public Queen(int color, Direction direction) {
-		super(FigureType.QUEEN, color, direction);
+	public Queen(int color, int associatedPlayerId, Direction direction) {
+		super(FigureType.QUEEN, direction, associatedPlayerId, color);
 	}
 	
 	@Override

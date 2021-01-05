@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class Rook extends Figure {
 	
-	public Rook(int color, Direction direction) {
-		super(FigureType.ROOK, color, direction);
+	public Rook(int color, int associatedPlayerId, Direction direction) {
+		super(FigureType.ROOK, direction, associatedPlayerId, color);
 	}
 	
 	@Override
