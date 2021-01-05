@@ -136,7 +136,7 @@ public class GameConfigScreen {
 			}
 
 			if (userInterfaceThread.client.localGame.properties.perMoveTimer != 0) {
-				userInterfaceThread.game.Playertime.setText("Time left:" + userInterfaceThread.client.localGame.properties.perMoveTimer);
+				userInterfaceThread.game.playertime.setText("Time left:" + userInterfaceThread.client.localGame.properties.perMoveTimer);
 
 
 				java.util.Timer moveEnd = new Timer();
@@ -145,14 +145,14 @@ public class GameConfigScreen {
 					@Override
 					public void run() {
 						sekunden--;
-						userInterfaceThread.game.Playertime.setText("Time left:" + sekunden);
+						userInterfaceThread.game.playertime.setText("Time left:" + sekunden);
 						if(sekunden <= 0){
 							moveEnd.cancel();
 						}
 					}
 				},1000,1000);
 			} else {
-				userInterfaceThread.game.Playertime.setText("No Move Time Limit");
+				userInterfaceThread.game.playertime.setText("No Move Time Limit");
 			}
 
 			//Muss nocmal überarbeitet werden
@@ -191,12 +191,13 @@ public class GameConfigScreen {
 	
 	private void setUIStyles() {
 		spinner_moveTimeLimit.setBorder(new LineBorder(spinner_moveTimeLimit.getBackground().darker()));
-		spinner_gameTimeLimit.setBorder(new LineBorder(spinner_moveTimeLimit.getBackground().darker()));
+		spinner_gameTimeLimit.setBorder(new LineBorder(spinner_gameTimeLimit.getBackground().darker()));
+		spinner_gameTimeWarning.setBorder(new LineBorder(spinner_gameTimeWarning.getBackground().darker()));
 		mainPanel.setBorder(new TitledBorder(new LineBorder(SystemColor.windowBorder), "Game Config"));
-		textField_player0Name.setBorder(new LineBorder(spinner_moveTimeLimit.getBackground().darker()));
-		textField_player1Name.setBorder(new LineBorder(spinner_moveTimeLimit.getBackground().darker()));
-		textField_player2Name.setBorder(new LineBorder(spinner_moveTimeLimit.getBackground().darker()));
-		textField_player3Name.setBorder(new LineBorder(spinner_moveTimeLimit.getBackground().darker()));
+		textField_player0Name.setBorder(new LineBorder(textField_player0Name.getBackground().darker()));
+		textField_player1Name.setBorder(new LineBorder(textField_player1Name.getBackground().darker()));
+		textField_player2Name.setBorder(new LineBorder(textField_player2Name.getBackground().darker()));
+		textField_player3Name.setBorder(new LineBorder(textField_player3Name.getBackground().darker()));
 		
 	}
 }

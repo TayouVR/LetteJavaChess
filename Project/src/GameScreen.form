@@ -107,7 +107,7 @@
           <text value="Game ends in:"/>
         </properties>
       </component>
-      <component id="57580" class="javax.swing.JLabel" binding="Playertime">
+      <component id="57580" class="javax.swing.JLabel" binding="playertime">
         <constraints>
           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -118,7 +118,7 @@
           <text value="Player Turn Ends in:"/>
         </properties>
       </component>
-      <component id="65a78" class="javax.swing.JLabel" binding="WarningTimer">
+      <component id="65a78" class="javax.swing.JLabel" binding="warningTimer">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
