@@ -76,28 +76,7 @@ public class Figure {
 		BufferedImage srcImage = getImage("chess_2.png");
 		int oneFigureSize = srcImage.getWidth()/6;
 		
-		
-		switch (type) {
-			case KING -> {
-				srcImage = cropImage(srcImage, new Rectangle(oneFigureSize*5, oneFigureSize*color, oneFigureSize, oneFigureSize));
-			}
-			case QUEEN -> {
-				srcImage = cropImage(srcImage, new Rectangle(oneFigureSize*4, oneFigureSize*color, oneFigureSize, oneFigureSize));
-			}
-			case ROOK -> {
-				srcImage = cropImage(srcImage, new Rectangle(oneFigureSize*3, oneFigureSize*color, oneFigureSize, oneFigureSize));
-			}
-			case BISHOP -> {
-				srcImage = cropImage(srcImage, new Rectangle(oneFigureSize*2, oneFigureSize*color, oneFigureSize, oneFigureSize));
-			}
-			case KNIGHT -> {
-				srcImage = cropImage(srcImage, new Rectangle(oneFigureSize, oneFigureSize*color, oneFigureSize, oneFigureSize));
-			}
-			case PAWN -> {
-				srcImage = cropImage(srcImage, new Rectangle(0, oneFigureSize*color, oneFigureSize, oneFigureSize));
-			}
-		}
-		
+		srcImage = cropImage(srcImage, new Rectangle(oneFigureSize*type.getValue(), oneFigureSize*color, oneFigureSize, oneFigureSize));
 		
 		return new ImageIcon(srcImage.getScaledInstance(targetResolution, targetResolution, 1));
 	}
