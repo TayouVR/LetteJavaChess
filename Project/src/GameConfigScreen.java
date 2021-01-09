@@ -126,6 +126,9 @@ public class GameConfigScreen {
 					public void run() {
 						sekunden--;
 						userInterfaceThread.game.Timer.setText("Time left:" + sekunden);
+						if (sekunden <= 10) {
+							userInterfaceThread.client.playCountdownSound();
+						}
 						if(sekunden <= 0){
 							countdown.cancel();
 						}
@@ -146,6 +149,9 @@ public class GameConfigScreen {
 					public void run() {
 						sekunden--;
 						userInterfaceThread.game.playertime.setText("Time left:" + sekunden);
+						if (sekunden <= 10) {
+							userInterfaceThread.client.playCountdownSound();
+						}
 						if(sekunden <= 0){
 							moveEnd.cancel();
 						}
