@@ -11,7 +11,6 @@ public class Client {
 
 	public Config config;
 	UserInterfaceThread userInterfaceThread;
-	AudioInputStream audioInputStream;
 
 	private String configFilePath = "config.json";
 	
@@ -32,41 +31,19 @@ public class Client {
 		// start UI up
 		userInterfaceThread = new UserInterfaceThread(this);
 		userInterfaceThread.start();
-		
+
+	}
+	
+	public void playCountdownSound(float distanceFromZero) {
 		try {
-			audioInputStream = AudioSystem.getAudioInputStream(new File("blip c 07.wav"));
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("blip c 07.wav"));
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(-15.0f + (1 - distanceFromZero) * 10); // Reduce volume by 10 decibels.
+			clip.start();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-
-
-	}
-	
-	public void playCountdownSound() {
-		Thread t = new SoundThread();
-		t.start();
-	}
-	
-	public class SoundThread extends Thread {
-		
-		@Override
-		public void run() {
-			try {
-				Clip clip = AudioSystem.getClip();
-				clip.open(audioInputStream);
-				FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-				gainControl.setValue(-10.0f); // Reduce volume by 10 decibels.
-				clip.start();
-				while (true) {
-					if (!clip.isRunning()) {
-						clip.stop();
-						clip.close();
-						break;
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 	}
 	
