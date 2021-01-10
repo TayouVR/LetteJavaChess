@@ -18,6 +18,7 @@ public class GameConfigScreen {
 	private JSpinner spinner_moveTimeLimit;
 	private JSpinner spinner_gameTimeLimit;
 	private JSpinner spinner_gameTimeWarning;
+	private JSpinner spinner_moveTimeWarning;
 	private JPanel mainPanel;
 	public JTextField textField_player0Name;
 	public JTextField textField_player1Name;
@@ -31,7 +32,10 @@ public class GameConfigScreen {
 	private JLabel label_player2;
 	private JLabel label_player3;
 	private JLabel label_player4;
-
+	
+	// Timers
+	java.util.Timer timer_move = new Timer();
+	
 	public GameConfigScreen(UserInterfaceThread userInterfaceThread) {
 		this.userInterfaceThread = userInterfaceThread;
 		
@@ -116,79 +120,16 @@ public class GameConfigScreen {
 			userInterfaceThread.setPanel(userInterfaceThread.game.panel1);
 			
 			if (userInterfaceThread.client.localGame.properties.fullGameTimer != 0) {
-				userInterfaceThread.game.Timer.setText("Time left:" + userInterfaceThread.client.localGame.properties.fullGameTimer);
-				
-				
-				java.util.Timer countdown = new Timer();
-				countdown.scheduleAtFixedRate(new TimerTask() {
-					int sekunden = userInterfaceThread.client.localGame.properties.fullGameTimer;
-					@Override
-					public void run() {
-						sekunden--;
-						userInterfaceThread.game.Timer.setText("Time left:" + sekunden);
-						if (sekunden <= 10) {
-							userInterfaceThread.client.playCountdownSound();
-						}
-						if(sekunden <= 0){
-							countdown.cancel();
-						}
-					}
-				},1000,1000);
+				runGameTimer();
 			} else {
 				userInterfaceThread.game.Timer.setText("No Time Limit");
 			}
 
 			if (userInterfaceThread.client.localGame.properties.perMoveTimer != 0) {
-				userInterfaceThread.game.playertime.setText("Time left:" + userInterfaceThread.client.localGame.properties.perMoveTimer);
-
-
-				java.util.Timer moveEnd = new Timer();
-				moveEnd.scheduleAtFixedRate(new TimerTask() {
-					int sekunden = userInterfaceThread.client.localGame.properties.perMoveTimer;
-					@Override
-					public void run() {
-						sekunden--;
-						userInterfaceThread.game.playertime.setText("Time left:" + sekunden);
-						if (sekunden <= 10) {
-							userInterfaceThread.client.playCountdownSound();
-						}
-						if(sekunden <= 0){
-							moveEnd.cancel();
-						}
-					}
-				},1000,1000);
+				runMoveTimer();
 			} else {
 				userInterfaceThread.game.playertime.setText("No Move Time Limit");
 			}
-
-			//Muss nocmal überarbeitet werden
-			/*
-			if (userInterfaceThread.client.localGame.properties.warningTimer != 0) {
-				userInterfaceThread.game.WarningTimer.setText("Warning only " + userInterfaceThread.client.localGame.properties.warningTimer + " left.");
-
-
-				java.util.Timer warningTime = new Timer();
-				warningTime.scheduleAtFixedRate(new TimerTask() {
-					int sekunden = userInterfaceThread.client.localGame.properties.warningTimer;
-					@Override
-					public void run() {
-						sekunden--;
-						userInterfaceThread.game.WarningTimer.setText("Warning only " + sekunden + " left.");
-						if(sekunden <= 0){
-							warningTime.cancel();
-						}
-
-						if(userInterfaceThread.game.Playertime ==  userInterfaceThread.game.WarningTimer){
-
-							userInterfaceThread.game.WarningTimer.setVisible(true);
-
-						}
-					}
-				},1000,1000);
-			} else {
-				userInterfaceThread.game.WarningTimer.setText("No Warning.");
-			}
-*/
 
 		});
 
@@ -199,11 +140,59 @@ public class GameConfigScreen {
 		spinner_moveTimeLimit.setBorder(new LineBorder(spinner_moveTimeLimit.getBackground().darker()));
 		spinner_gameTimeLimit.setBorder(new LineBorder(spinner_gameTimeLimit.getBackground().darker()));
 		spinner_gameTimeWarning.setBorder(new LineBorder(spinner_gameTimeWarning.getBackground().darker()));
+		spinner_moveTimeWarning.setBorder(new LineBorder(spinner_moveTimeWarning.getBackground().darker()));
 		mainPanel.setBorder(new TitledBorder(new LineBorder(SystemColor.windowBorder), "Game Config"));
 		textField_player0Name.setBorder(new LineBorder(textField_player0Name.getBackground().darker()));
 		textField_player1Name.setBorder(new LineBorder(textField_player1Name.getBackground().darker()));
 		textField_player2Name.setBorder(new LineBorder(textField_player2Name.getBackground().darker()));
 		textField_player3Name.setBorder(new LineBorder(textField_player3Name.getBackground().darker()));
 		
+	}
+	
+	public void cancelMoveTimer() {
+		timer_move.cancel();
+		timer_move.purge();
+	}
+	
+	public void runMoveTimer() {
+		userInterfaceThread.game.playertime.setText("Time left:" + userInterfaceThread.client.localGame.properties.perMoveTimer);
+		timer_move.cancel();
+		timer_move.purge();
+		timer_move.scheduleAtFixedRate(new TimerTask() {
+			int seconds = userInterfaceThread.client.localGame.properties.perMoveTimer;
+			@Override
+			public void run() {
+				seconds--;
+				userInterfaceThread.game.playertime.setText("Time left:" + seconds);
+				if (seconds <= (int)spinner_moveTimeWarning.getValue()) {
+					userInterfaceThread.client.playCountdownSound((float)seconds / (int)spinner_gameTimeWarning.getValue());
+				}
+				if(seconds <= 0){
+					userInterfaceThread.game.setAllFieldsDeselected();
+					userInterfaceThread.client.localGame.nextPlayerTurn();
+					runMoveTimer();
+				}
+			}
+		},1000,1000);
+	}
+	
+	public void runGameTimer() {
+		userInterfaceThread.game.Timer.setText("Time left:" + userInterfaceThread.client.localGame.properties.fullGameTimer);
+		java.util.Timer timer_game = new Timer();
+		timer_game.scheduleAtFixedRate(new TimerTask() {
+			int seconds = userInterfaceThread.client.localGame.properties.fullGameTimer;
+			@Override
+			public void run() {
+				seconds--;
+				userInterfaceThread.game.Timer.setText("Time left:" + seconds);
+				if (seconds <= (int)spinner_gameTimeWarning.getValue()) {
+					userInterfaceThread.client.playCountdownSound((float)seconds / (int)spinner_gameTimeWarning.getValue());
+				}
+				if(seconds <= 0){
+					timer_game.cancel();
+					timer_game.purge();
+				}
+			}
+		},1000,1000);
 	}
 }
