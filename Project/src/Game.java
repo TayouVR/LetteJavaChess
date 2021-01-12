@@ -1,5 +1,8 @@
 import java.awt.*;
 
+/**
+ * Handles game start and turn management, holds game settings
+ */
 public class Game {
 	
 	public boolean isServer;
@@ -14,13 +17,26 @@ public class Game {
 		return currentPlayerTurn;
 	}
 	
+	/**
+	 * Starts next players turn
+	 */
 	public void nextPlayerTurn() {
 		currentPlayerTurn = (currentPlayerTurn % properties.playerCount) + 1;
-		for (int i = 0; i < players.length; i++) {
-			players[i].playerNameLabel.setForeground(i == currentPlayerTurn-1 ? Color.CYAN : SystemColor.textText);
-		}
+		//if (!isServer) {
+			for (int i = 0; i < players.length; i++) {
+				players[i].playerNameLabel.setForeground(i == currentPlayerTurn - 1 ? Color.CYAN : SystemColor.textText);
+			}
+		//}
 	}
 	
+	/**
+	 * initialize all the players and their figures
+	 * @param screen GameScreen object which has the field
+	 * @param color1 color for first player
+	 * @param color2 color for second player
+	 * @param color3 color for third player
+	 * @param color4 color for fourth player
+	 */
 	public void initializeGame(GameScreen screen, int color1, int color2, int color3, int color4) {
 		
 		int playerCount = properties.playerCount;

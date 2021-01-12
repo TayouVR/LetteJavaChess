@@ -1,3 +1,6 @@
+/**
+ * move logic for pawn
+ */
 public class Pawn extends Figure {
 	
 	public Pawn(int color, int associatedPlayerId, Direction direction) {
@@ -15,6 +18,7 @@ public class Pawn extends Figure {
 					int rowDeltaAbs = Math.abs(field.x - srcField.x);
 					int colDeltaAbs = Math.abs(field.y - srcField.y);
 					
+					// go through all directions the pawn could be moving in
 					switch (direction) {
 						case UP -> {
 							if (field.getFigure() != null) {

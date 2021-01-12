@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Manage the Playfield and game actions
+ */
 public class GameScreen {
 
 	UserInterfaceThread userInterfaceThread;
@@ -17,16 +20,15 @@ public class GameScreen {
 	public JLabel playerName2;
 	public JLabel playerName4;
 	private JPanel buttonPanel;
-	public JLabel Timer;
-	public JLabel playertime;
-	private JLabel warningTimer;
+	public JLabel gameTimer;
+	public JLabel turnTimer;
 	
 	
 	public Field[][] felder = new Field[14][14];
 	
 	public Field selectedField;
 	
-	public int playfieldSize = 896;
+	public int playfieldSize = 896; //default playfield size
 
 	public GameScreen(UserInterfaceThread userInterfaceThread) {
 		this.userInterfaceThread = userInterfaceThread;
@@ -59,7 +61,7 @@ public class GameScreen {
 				}
 			}
 		}
-		playfieldSize = userInterfaceThread.window.getSize().height - buttonPanel.getHeight() - Timer.getFont().getSize() - 100;
+		playfieldSize = userInterfaceThread.window.getSize().height - buttonPanel.getHeight() - gameTimer.getFont().getSize() - 100;
 		Dimension d = new Dimension(playfieldSize, playfieldSize);
 		gamePanel.setPreferredSize(d);
 		for (Field[] fields: felder) {
@@ -73,14 +75,29 @@ public class GameScreen {
 		}
 	}
 	
+	/**
+	 * sets a figure to the target position on the field
+	 * @param x target x
+	 * @param y target y
+	 * @param figure figure
+	 */
 	public void setFigureToPosition(int x, int y, Figure figure) {
 		felder[x][y].setFigure(figure);
 	}
 	
+	/**
+	 * get figure from position
+	 * @param x target x
+	 * @param y target y
+	 * @return figure
+	 */
 	public Field getFigureFromPosition(int x, int y) {
 		return felder[x][y];
 	}
 	
+	/**
+	 * deselect all fields
+	 */
 	public void setAllFieldsDeselected() {
 		for (Field[] fields: felder) {
 			for (Field field: fields) {

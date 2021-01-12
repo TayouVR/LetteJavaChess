@@ -1,15 +1,20 @@
+/**
+ * Properties of the game
+ */
 public class GameProperties {
 	
-	public int playerCount; 					// Player count
-	public PlayField map; 						// play field
+	/** Player count */
+	public int playerCount;
+	/** play field */
+	public PlayField map;
 	
-	public boolean hasTimeLimit; 				// whether or not the game has a time limit
-	public int fullGameTimer; 					// maximum Time for the entire game
+	/** maximum Time for the entire game */
+	public int fullGameTimer;
 	
-	public boolean hasMoveTimer; 				// whether or not moves have a time limit
-	public int perMoveTimer; 					// maximum time per move
+	/** maximum time per move */
+	public int perMoveTimer;
 
-	public boolean hasWarningTimer;				// whether or not theres a Warning for the Time
-	public int warningTimer;					// Time when the Warning pops up
+	/** Time when the Warning pops up */
+	public int warningTimer;
 	
 }

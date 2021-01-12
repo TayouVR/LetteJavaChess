@@ -1,3 +1,6 @@
+/**
+ * move logic for knight
+ */
 public class Knight extends Figure {
 	
 	public Knight(int color, int associatedPlayerId, Direction direction) {

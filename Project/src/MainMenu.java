@@ -1,6 +1,8 @@
 import javax.swing.*;
-import java.awt.*;
 
+/**
+ * houses settings, exit and game type choose buttons
+ */
 public class MainMenu {
 	
 	UserInterfaceThread userInterfaceThread;

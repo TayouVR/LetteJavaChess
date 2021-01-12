@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Tile on playfield
+ */
 public class Field extends JButton {
     public int x;
     public int y;
@@ -10,8 +13,12 @@ public class Field extends JButton {
     private Move isValidMove;
     
     private GameScreen gameScreen;
-
     
+    /**
+     * Constructor
+     * @param screen GameScreen which has the whole field
+     * @param isBlack wether field is black or white
+     */
     public Field(GameScreen screen, boolean isBlack) {
         this.isBlack = isBlack;
         setBackground(isBlack ? new Color(100,100,100) : Color.WHITE);
@@ -41,11 +48,15 @@ public class Field extends JButton {
                 screen.setAllFieldsDeselected();
                 screen.userInterfaceThread.client.localGame.nextPlayerTurn();
             } else if (figure != null && screen.userInterfaceThread.client.localGame.getCurrentPlayerTurn() == figure.associatedPlayerId) {
-                setMoveable();
+                select();
             }
         });
     }
     
+    /**
+     * Places a figure on this field
+     * @param figure figure to place
+     */
     public void setFigure(Figure figure) {
         if (figure != null) {
             this.figure = figure;
@@ -56,16 +67,28 @@ public class Field extends JButton {
         }
     }
     
+    /**
+     * Gets the figure currently on the field
+     * @return figure
+     */
     public Figure getFigure() {
         return figure;
     }
     
-    public void setMoveable() {
+    /**
+     * Selects field
+     */
+    public void select() {
         gameScreen.selectedField = this;
         setBackground(isBlack ? new Color(32, 32, 163) : new Color(79, 79, 255));
         figure.setMovableFields(gameScreen, this);
     }
     
+    /**
+     * Set if this field is a valid move for the current figure.
+     * Sets colors accordingly
+     * @param state
+     */
     public void setValidMove(Move state) {
         isValidMove = state;
         if (state == Move.MOVE) {
@@ -77,6 +100,9 @@ public class Field extends JButton {
         }
     }
     
+    /**
+     * All movable options
+     */
     public enum Move {
         DEFAULT,
         MOVE,

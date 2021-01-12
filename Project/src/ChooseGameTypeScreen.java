@@ -1,5 +1,8 @@
 import javax.swing.*;
 
+/**
+ * Main Window screen to choose the game type (local, host, join)
+ */
 public class ChooseGameTypeScreen {
 	
 	UserInterfaceThread userInterfaceThread;

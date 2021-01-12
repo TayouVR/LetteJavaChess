@@ -6,6 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+/**
+ * Manages config File
+ */
 public class Config {
 
 	JSONObject jsonObject;
@@ -73,8 +76,11 @@ public class Config {
 	
 	/////////////////////////////////////////////////
 	
-	
-
+	/**
+	 * Constructor
+	 * @param configFilePath file path of config file
+	 * @param client client object to link to
+	 */
 	public Config(String configFilePath, Client client) {
 		this.configFilePath = configFilePath;
 		this.client = client;
@@ -90,7 +96,10 @@ public class Config {
 		jsonObject.put("existingFigureSkins", existingFigureSkins);
 		jsonObject.put("fullscreenMode", fullscreenMode.getValue());
 	}
-
+	
+	/**
+	 * tries to load the config file from defined path
+	 */
 	public void loadConfig() {
 		System.out.println("loading Config");
 
@@ -109,7 +118,10 @@ public class Config {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * Tries to save the config file to defined path
+	 */
 	public void saveConfig() {
 		System.out.println("saving Config");
 

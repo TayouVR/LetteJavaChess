@@ -3,6 +3,9 @@ import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
+/**
+ * Manages all UI
+ */
 public class UserInterfaceThread extends Thread {
 	
 	Client client;

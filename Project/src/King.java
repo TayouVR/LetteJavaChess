@@ -1,3 +1,6 @@
+/**
+ * move logic for king
+ */
 public class King extends Figure {
 	
 	public King(int color, int associatedPlayerId, Direction direction) {
