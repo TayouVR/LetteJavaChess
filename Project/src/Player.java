@@ -1,5 +1,8 @@
 import javax.swing.*;
 
+/**
+ * player data class
+ */
 public class Player {
 	
 	public String name;

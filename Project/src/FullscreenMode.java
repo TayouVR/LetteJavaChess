@@ -2,7 +2,9 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-
+/**
+ * Window mode
+ */
 public enum FullscreenMode {
 	FULLSCREEN(0),
 	WINDOWED(1),

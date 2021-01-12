@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * move logic for rook
+ */
 public class Rook extends Figure {
 	
 	public Rook(int color, int associatedPlayerId, Direction direction) {
@@ -34,6 +37,6 @@ public class Rook extends Figure {
 				}
 			}
 		}
-		setValidStraightLineFields(list, srcField, 4);
+		setValidStraightLineFields(list, srcField);
 	}
 }

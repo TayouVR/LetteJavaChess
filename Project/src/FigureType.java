@@ -2,20 +2,29 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * All types a figure can be
+ */
 public enum FigureType {
 
+	/** König */
 	KING(5),
+	/** Königin */
 	QUEEN(4),
-	ROOK(3),   // Turm
-	BISHOP(2), // Läufer
-	KNIGHT(1), // Pferd / Springer
-	PAWN(0);    // Bauer
+	/** Turm */
+	ROOK(3),
+	/** Läufer */
+	BISHOP(2),
+	/** Pferd / Springer */
+	KNIGHT(1),
+	/** Bauer */
+	PAWN(0);
 	
 	
 	private int value;
 	private static Map map = new HashMap<>();
 	
-	private FigureType(int value) {
+	FigureType(int value) {
 		this.value = value;
 	}
 	

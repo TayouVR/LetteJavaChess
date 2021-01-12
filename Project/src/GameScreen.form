@@ -96,7 +96,7 @@
           </component>
         </children>
       </grid>
-      <component id="a5bb7" class="javax.swing.JLabel" binding="Timer">
+      <component id="a5bb7" class="javax.swing.JLabel" binding="gameTimer">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -107,7 +107,7 @@
           <text value="Game ends in:"/>
         </properties>
       </component>
-      <component id="57580" class="javax.swing.JLabel" binding="playertime">
+      <component id="57580" class="javax.swing.JLabel" binding="turnTimer">
         <constraints>
           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -116,15 +116,6 @@
           <horizontalAlignment value="2"/>
           <horizontalTextPosition value="0"/>
           <text value="Player Turn Ends in:"/>
-        </properties>
-      </component>
-      <component id="65a78" class="javax.swing.JLabel" binding="warningTimer">
-        <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <font size="24" style="1"/>
-          <text value="Warning:"/>
         </properties>
       </component>
     </children>

@@ -27,12 +27,23 @@ public class Figure {
 		this.color = color;
 	}
 	
+	/**
+	 * sets the fields to movable, that match the movement pattern of the figure
+	 * needs to be overriden by child classes
+	 * @param screen GameScreen ui class, that contains the entire game field
+	 * @param srcField tile, from which the moves should be calculated from
+	 */
 	public void setMovableFields(GameScreen screen, Field srcField) {
 		System.out.println("No Specific Figure Targetted, No moves set");
 	}
 	
-	public void setValidStraightLineFields(ArrayList<ArrayList<Field>> directions, Field srcField, int count) {
-		for (int i = 0; i < count; i++) {
+	/**
+	 * set the fields to movable, that are in a straight / diagonal line pattern from the figure
+	 * @param directions fields in a line (one direction, e.g. X)
+	 * @param srcField tile, from which the moves should be calculated from
+	 */
+	public void setValidStraightLineFields(ArrayList<ArrayList<Field>> directions, Field srcField) {
+		for (int i = 0; i < directions.size(); i++) {
 			int blockedPos = 1000;
 			
 			// look for blocked field (x+y = distance)
@@ -58,6 +69,11 @@ public class Figure {
 		}
 	}
 	
+	/**
+	 * Gets the buffered Image from a file
+	 * @param filename file path to look for the file
+	 * @return Image as BufferedImage
+	 */
 	private BufferedImage getImage(String filename) {
 		// This time, you can use an InputStream to load
 		try {
@@ -74,6 +90,11 @@ public class Figure {
 		return null;
 	}
 	
+	/**
+	 * get ImageIcon for figure at target resolution
+	 * @param targetResolution target resolution to resize the image to
+	 * @return ImageIcon for figure
+	 */
 	public ImageIcon getSingleImage(int targetResolution) {
 		BufferedImage srcImage = getImage("chess_2.png");
 		int oneFigureSize = srcImage.getWidth()/6;
@@ -83,6 +104,12 @@ public class Figure {
 		return new ImageIcon(srcImage.getScaledInstance(targetResolution, targetResolution, 1));
 	}
 	
+	/**
+	 * crop image via rect
+	 * @param src source Image
+	 * @param rect position and size of cropped region
+	 * @return cropped region
+	 */
 	private BufferedImage cropImage(BufferedImage src, Rectangle rect) {
 		BufferedImage dest = src.getSubimage(rect.x, rect.y, rect.width, rect.height);
 		return dest;

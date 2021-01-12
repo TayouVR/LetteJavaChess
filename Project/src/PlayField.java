@@ -2,6 +2,9 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Map type
+ */
 public enum PlayField {
 	REGULAR(0),
 	THREE_PLAYERS(1),
@@ -10,7 +13,7 @@ public enum PlayField {
 	private int value;
 	private static Map map = new HashMap<>();
 	
-	private PlayField(int value) {
+	PlayField(int value) {
 		this.value = value;
 	}
 	

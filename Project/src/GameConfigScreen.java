@@ -5,7 +5,9 @@ import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
+/**
+ * configure game settings like player count, names, colors and timers
+ */
 public class GameConfigScreen {
 	
 	UserInterfaceThread userInterfaceThread;
@@ -65,6 +67,7 @@ public class GameConfigScreen {
 			
 		});
 		
+		// set colors
 		String[] availableColorOptions = {"White", "Black", "Dark Grey", "Light Grey", "Pink", "Red", "Orange", "Yellow", "Green", "Blue", "Cyan", "Purple"};
 		
 		for (String option: availableColorOptions) {
@@ -73,11 +76,14 @@ public class GameConfigScreen {
 			comboBox_player2color.addItem(option);
 			comboBox_player3color.addItem(option);
 		}
+		// set initially selected colors
 		comboBox_player0color.setSelectedIndex(0);
 		comboBox_player1color.setSelectedIndex(1);
 		comboBox_player2color.setSelectedIndex(10);
 		comboBox_player3color.setSelectedIndex(11);
+		
 		/*
+		// Block taken colors from other dropdowns
 		ActionListener colorActionListener = e -> {
 			comboBox_player0color.getItemAt(0);
 			comboBox_player1color.addActionListener(colorActionListener);
@@ -122,13 +128,13 @@ public class GameConfigScreen {
 			if (userInterfaceThread.client.localGame.properties.fullGameTimer != 0) {
 				runGameTimer();
 			} else {
-				userInterfaceThread.game.Timer.setText("No Time Limit");
+				userInterfaceThread.game.gameTimer.setText("No Time Limit");
 			}
 
 			if (userInterfaceThread.client.localGame.properties.perMoveTimer != 0) {
 				runMoveTimer();
 			} else {
-				userInterfaceThread.game.playertime.setText("No Move Time Limit");
+				userInterfaceThread.game.turnTimer.setText("No Move Time Limit");
 			}
 
 		});
@@ -136,6 +142,9 @@ public class GameConfigScreen {
 
 	}
 	
+	/**
+	 * sets titled border and borders (because they might be broken when theming on windows)
+	 */
 	private void setUIStyles() {
 		spinner_moveTimeLimit.setBorder(new LineBorder(spinner_moveTimeLimit.getBackground().darker()));
 		spinner_gameTimeLimit.setBorder(new LineBorder(spinner_gameTimeLimit.getBackground().darker()));
@@ -149,21 +158,31 @@ public class GameConfigScreen {
 		
 	}
 	
+	/**
+	 * cancel the move timer
+	 */
 	public void cancelMoveTimer() {
 		timer_move.cancel();
 		timer_move.purge();
 	}
 	
+	/**
+	 * Run the move timer
+	 */
 	public void runMoveTimer() {
-		userInterfaceThread.game.playertime.setText("Time left:" + userInterfaceThread.client.localGame.properties.perMoveTimer);
-		timer_move.cancel();
-		timer_move.purge();
+		userInterfaceThread.game.turnTimer.setText("Time left:" + userInterfaceThread.client.localGame.properties.perMoveTimer);
+		try	{
+			timer_move.cancel();
+			timer_move.purge();
+		} catch (Exception e) {
+			System.out.println("Move timer couldn't be cancelled and purged");
+		}
 		timer_move.scheduleAtFixedRate(new TimerTask() {
 			int seconds = userInterfaceThread.client.localGame.properties.perMoveTimer;
 			@Override
 			public void run() {
 				seconds--;
-				userInterfaceThread.game.playertime.setText("Time left:" + seconds);
+				userInterfaceThread.game.turnTimer.setText("Time left:" + seconds);
 				if (seconds <= (int)spinner_moveTimeWarning.getValue()) {
 					userInterfaceThread.client.playCountdownSound((float)seconds / (int)spinner_gameTimeWarning.getValue());
 				}
@@ -176,15 +195,18 @@ public class GameConfigScreen {
 		},1000,1000);
 	}
 	
+	/**
+	 * Run the game timer
+	 */
 	public void runGameTimer() {
-		userInterfaceThread.game.Timer.setText("Time left:" + userInterfaceThread.client.localGame.properties.fullGameTimer);
+		userInterfaceThread.game.gameTimer.setText("Time left:" + userInterfaceThread.client.localGame.properties.fullGameTimer);
 		java.util.Timer timer_game = new Timer();
 		timer_game.scheduleAtFixedRate(new TimerTask() {
 			int seconds = userInterfaceThread.client.localGame.properties.fullGameTimer;
 			@Override
 			public void run() {
 				seconds--;
-				userInterfaceThread.game.Timer.setText("Time left:" + seconds);
+				userInterfaceThread.game.gameTimer.setText("Time left:" + seconds);
 				if (seconds <= (int)spinner_gameTimeWarning.getValue()) {
 					userInterfaceThread.client.playCountdownSound((float)seconds / (int)spinner_gameTimeWarning.getValue());
 				}

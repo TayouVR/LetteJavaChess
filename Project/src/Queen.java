@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * move logic for queen
+ */
 public class Queen extends Figure {
 	
 	public Queen(int color, int associatedPlayerId, Direction direction) {
@@ -41,6 +44,6 @@ public class Queen extends Figure {
 				}
 			}
 		}
-		setValidStraightLineFields(list, srcField, 8);
+		setValidStraightLineFields(list, srcField);
 	}
 }

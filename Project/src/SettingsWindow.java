@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * allows changing of global settings
+ */
 public class SettingsWindow {
 
 	JFrame window = new JFrame();
@@ -31,6 +34,7 @@ public class SettingsWindow {
 		closeButton.addActionListener(e -> closeWindow());
 		
 		graphicsSettings();
+		audioSettings();
 		
 		window.setContentPane(panel1);
 
@@ -44,7 +48,10 @@ public class SettingsWindow {
 		window.setVisible(false);
 		window.dispose();
 	}
-
+	
+	/**
+	 * set listeners for graphics settings page
+	 */
 	private void graphicsSettings() {
 		String[] resolutionStrings = {"3840x2160", "1920x1080", "1600x1050", "1280x800", "1600x900", "1360x768", "1280x1024", "1024x768", "1200x720", "420x360"};
 		for (String resolution: resolutionStrings) {
@@ -98,10 +105,13 @@ public class SettingsWindow {
 			uiThread.client.config.saveConfig();
 		});
 	}
-
+	
+	/**
+	 * set listeners for audio settings
+	 */
 	private void audioSettings() {
 
-		//TODO Shyguy hier diesen Slider und Dropdown via .forms datei machen (action listener bleibt hier)
+		//TODO audio volume settings need listener and saving
 		
 		comboBox_audioDevice.setSelectedIndex(0);
 		

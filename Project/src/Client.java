@@ -6,7 +6,9 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-
+/**
+ * The Game Client
+ */
 public class Client {
 
 	public Config config;
@@ -19,7 +21,10 @@ public class Client {
 	public static void main(String[] args) {
 		new Client();
 	}
-
+	
+	/**
+	 * Constructor
+	 */
 	public Client() {
 		
 		// create config object
@@ -34,6 +39,10 @@ public class Client {
 
 	}
 	
+	/**
+	 * Responsible for playing the sound of the countdown
+	 * @param distanceFromZero the normalized value for distance away from 0
+	 */
 	public void playCountdownSound(float distanceFromZero) {
 		try {
 			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("blip c 07.wav"));

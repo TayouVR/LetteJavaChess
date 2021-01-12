@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * Bishop Figure
+ */
 public class Bishop extends Figure {
 	
 	public Bishop(int color, int associatedPlayerId, Direction direction) {
@@ -33,6 +36,6 @@ public class Bishop extends Figure {
 				}
 			}
 		}
-		setValidStraightLineFields(list, srcField, 4);
+		setValidStraightLineFields(list, srcField);
 	}
 }
