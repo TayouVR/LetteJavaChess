@@ -23,7 +23,7 @@ public class Game {
 	public void nextPlayerTurn() {
 		currentPlayerTurn = (currentPlayerTurn % properties.playerCount) + 1;
 		//if (!isServer) {
-			for (int i = 0; i < players.length; i++) {
+			for (int i = 0; i < properties.playerCount; i++) {
 				players[i].playerNameLabel.setForeground(i == currentPlayerTurn - 1 ? Color.CYAN : SystemColor.textText);
 			}
 		//}
