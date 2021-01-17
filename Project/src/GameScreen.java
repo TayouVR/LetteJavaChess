@@ -30,8 +30,8 @@ public class GameScreen {
 	
 	public int playfieldSize = 896; //default playfield size
 
-	public GameScreen(UserInterfaceThread userInterfaceThread) {
-		this.userInterfaceThread = userInterfaceThread;
+	public GameScreen() {
+		this.userInterfaceThread = Client.userInterfaceThread;
 
 		btn_leaveGame.addActionListener(e -> {
 			userInterfaceThread.setPanel(userInterfaceThread.chooseGameType.panel1);
@@ -52,8 +52,7 @@ public class GameScreen {
 						felder[i][j] = new Field(this, true);
 					}
 					
-					felder[i][j].x = i;
-					felder[i][j].y = j;
+					felder[i][j].pos = new Vector2int(i, j);
 					felder[i][j].setBorder(null);
 					gamePanel.add(felder[i][j]);
 				} else {
@@ -61,7 +60,7 @@ public class GameScreen {
 				}
 			}
 		}
-		playfieldSize = userInterfaceThread.window.getSize().height - buttonPanel.getHeight() - gameTimer.getFont().getSize() - 100;
+		playfieldSize = UserInterfaceThread.window.getSize().height - buttonPanel.getHeight() - gameTimer.getFont().getSize() - 100;
 		Dimension d = new Dimension(playfieldSize, playfieldSize);
 		gamePanel.setPreferredSize(d);
 		for (Field[] fields: felder) {
@@ -81,18 +80,19 @@ public class GameScreen {
 	 * @param y target y
 	 * @param figure figure
 	 */
-	public void setFigureToPosition(int x, int y, Figure figure) {
+	public Figure setFigureToPosition(int x, int y, Figure figure) {
 		felder[x][y].setFigure(figure);
+		figure.field = felder[x][y];
+		return figure;
 	}
 	
 	/**
 	 * get figure from position
-	 * @param x target x
-	 * @param y target y
+	 * @param pos position to get field from
 	 * @return figure
 	 */
-	public Field getFigureFromPosition(int x, int y) {
-		return felder[x][y];
+	public Field getField(Vector2int pos) {
+		return felder[pos.x][pos.y];
 	}
 	
 	/**

@@ -8,8 +8,6 @@ public class SettingsWindow {
 
 	JFrame window = new JFrame();
 	Color selectedColor = Color.BLACK;
-
-	UserInterfaceThread uiThread;
 	
 	// UI Elements
 	private JTabbedPane tabbedPane1;
@@ -27,8 +25,7 @@ public class SettingsWindow {
 	private JComboBox comboBox_audioDevice;
 	private JComboBox comboBox_figureSets;
 	
-	public SettingsWindow(UserInterfaceThread uiThread) {
-		this.uiThread = uiThread;
+	public SettingsWindow() {
 		
 		btn_preferredColor.addActionListener(e -> selectedColor = JColorChooser.showDialog(null, "Choose Preferred color", null));
 		closeButton.addActionListener(e -> closeWindow());
@@ -61,7 +58,7 @@ public class SettingsWindow {
 		comboBox_resolutions.setSelectedIndex(0);
 		
 		comboBox_resolutions.addActionListener(e -> {
-			if (uiThread.client.config.getFullscreenMode() != FullscreenMode.FULLSCREEN) {
+			if (Client.config.getFullscreenMode() != FullscreenMode.FULLSCREEN) {
 				JComboBox cb = (JComboBox) e.getSource();
 				String resolution = (String) cb.getSelectedItem();
 				System.out.println(resolution);
@@ -69,9 +66,9 @@ public class SettingsWindow {
 				for (String s : size) {
 					System.out.println(s);
 				}
-				uiThread.window.setSize(Integer.parseInt(size[0]), Integer.parseInt(size[1]));
-				uiThread.client.config.setResolution(Integer.parseInt(size[0]), Integer.parseInt(size[1]));
-				uiThread.client.config.saveConfig();
+				UserInterfaceThread.window.setSize(Integer.parseInt(size[0]), Integer.parseInt(size[1]));
+				Client.config.setResolution(Integer.parseInt(size[0]), Integer.parseInt(size[1]));
+				Client.config.saveConfig();
 			}
 		});
 
@@ -86,9 +83,8 @@ public class SettingsWindow {
 			JComboBox cb = (JComboBox) e.getSource();
 			String resolution = (String) cb.getSelectedItem();
 			//window.set();
-			uiThread.client.config.saveConfig();
+			Client.config.saveConfig();
 		});
-		
 		
 		for (FullscreenMode option: FullscreenMode.values()) {
 			comboBox_fullscreenMode.addItem(option);
@@ -98,11 +94,11 @@ public class SettingsWindow {
 		
 		comboBox_fullscreenMode.addActionListener(e -> {
 			JComboBox cb = (JComboBox) e.getSource();
-			uiThread.setApplicationFullscreenMode(FullscreenMode.valueOf(cb.getSelectedIndex()));
+			Client.userInterfaceThread.setApplicationFullscreenMode(FullscreenMode.valueOf(cb.getSelectedIndex()));
 			window.requestFocusInWindow();
 			window.toFront();
 			window.repaint();
-			uiThread.client.config.saveConfig();
+			Client.config.saveConfig();
 		});
 	}
 	
@@ -112,14 +108,14 @@ public class SettingsWindow {
 	private void audioSettings() {
 
 		//TODO audio volume settings need listener and saving
-		
+		/*
 		comboBox_audioDevice.setSelectedIndex(0);
 		
 		comboBox_audioDevice.addActionListener(e -> {
 			JComboBox cb = (JComboBox) e.getSource();
 			String audio = (String) cb.getSelectedItem();
 			System.out.println(audio);
-		});
+		});*/
 	}
 }
 

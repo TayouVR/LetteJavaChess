@@ -11,16 +11,18 @@ import java.nio.file.Path;
  */
 public class Client {
 
-	public Config config;
-	UserInterfaceThread userInterfaceThread;
+	public static Config config;
+	public static UserInterfaceThread userInterfaceThread;
 
 	private String configFilePath = "config.json";
 	
 	public Game localGame;
 
 	public static void main(String[] args) {
-		new Client();
+		instance = new Client();
 	}
+	
+	public static Client instance;
 	
 	/**
 	 * Constructor
@@ -61,7 +63,7 @@ public class Client {
 	 * @param isLocal whether the instance is running as a server or is connected to one
 	 */
 	public void startNewGame(boolean isLocal) {
-		userInterfaceThread.game = new GameScreen(userInterfaceThread);
+		UserInterfaceThread.game = new GameScreen();
 		localGame = new Game();
 		localGame.isServer = !isLocal;
 	}

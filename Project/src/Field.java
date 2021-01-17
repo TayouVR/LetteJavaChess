@@ -5,8 +5,7 @@ import java.awt.*;
  * Tile on playfield
  */
 public class Field extends JButton {
-    public int x;
-    public int y;
+    public Vector2int pos;
     private Figure figure;
     
     public boolean isBlack;
@@ -25,17 +24,11 @@ public class Field extends JButton {
         gameScreen = screen;
         addActionListener(e -> {
             if (isValidMove == Move.DEFAULT) {
-                gameScreen.selectedField = null;
-                for (Field[] fields: gameScreen.felder) {
-                    for (Field field: fields) {
-                        if (field != null) {
-                            field.setValidMove(Move.DEFAULT);
-                        }
-                    }
-                }
+                screen.setAllFieldsDeselected();
             }
             if (isValidMove == Move.MOVE || isValidMove == Move.ATTACK && gameScreen.selectedField != null) {
                 setFigure(gameScreen.selectedField.figure);
+                figure.field = this;
                 gameScreen.selectedField.figure.isFirstMove = false;
                 gameScreen.selectedField.setFigure(null);
                 for (Field[] fields: gameScreen.felder) {
@@ -81,7 +74,7 @@ public class Field extends JButton {
     public void select() {
         gameScreen.selectedField = this;
         setBackground(isBlack ? new Color(32, 32, 163) : new Color(79, 79, 255));
-        figure.setMovableFields(gameScreen, this);
+        figure.setMovableFields();
     }
     
     /**
