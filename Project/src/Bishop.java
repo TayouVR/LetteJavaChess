@@ -10,17 +10,18 @@ public class Bishop extends Figure {
 	}
 	
 	@Override
-	public void setMovableFields(GameScreen screen, Field srcField) {
+	public boolean setMovableFields() {
+		Field srcField = field;
 		ArrayList<ArrayList<Field>> list = new ArrayList<>();
 		for (int i = 0; i < 4; i++) {
 			list.add(new ArrayList<>());
 		}
-		for (Field[] fields: screen.felder) {
+		for (Field[] fields: UserInterfaceThread.game.felder) {
 			for (Field field: fields) {
 				if (field != null) {
 					
-					int rowDelta = field.x - srcField.x;
-					int colDelta = field.y - srcField.y;
+					int rowDelta = field.pos.x - srcField.pos.x;
+					int colDelta = field.pos.y - srcField.pos.y;
 					
 					if (rowDelta > 0 && colDelta == rowDelta) {
 						list.get(0).add(field);
@@ -36,6 +37,6 @@ public class Bishop extends Figure {
 				}
 			}
 		}
-		setValidStraightLineFields(list, srcField);
+		return setValidStraightLineFields(list, srcField) != 0;
 	}
 }

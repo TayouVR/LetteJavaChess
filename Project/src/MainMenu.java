@@ -5,19 +5,16 @@ import javax.swing.*;
  */
 public class MainMenu {
 	
-	UserInterfaceThread userInterfaceThread;
-	
 	// UI Elements
 	public JPanel panel1;
 	private JButton playButton;
 	private JButton settingsButton;
 	private JButton exitButton;
 	
-	public MainMenu(UserInterfaceThread userInterfaceThread) {
-		this.userInterfaceThread = userInterfaceThread;
+	public MainMenu() {
 		
-		playButton.addActionListener(e -> userInterfaceThread.setPanel(userInterfaceThread.chooseGameType.panel1));
-		settingsButton.addActionListener(e -> new SettingsWindow(userInterfaceThread));
+		playButton.addActionListener(e -> UserInterfaceThread.setPanel(UserInterfaceThread.chooseGameType.panel1));
+		settingsButton.addActionListener(e -> new SettingsWindow());
 		exitButton.addActionListener(e -> System.exit(0));
 	}
 }

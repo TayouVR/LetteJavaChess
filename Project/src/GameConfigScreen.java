@@ -2,6 +2,8 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,20 +28,28 @@ public class GameConfigScreen {
 	public JTextField textField_player1Name;
 	public JTextField textField_player2Name;
 	public JTextField textField_player3Name;
-	private JComboBox comboBox_player0color;
-	private JComboBox comboBox_player1color;
-	private JComboBox comboBox_player2color;
-	private JComboBox comboBox_player3color;
-	private JLabel label_player1;
-	private JLabel label_player2;
-	private JLabel label_player3;
-	private JLabel label_player4;
+	public JComboBox comboBox_player0color;
+	public JComboBox comboBox_player1color;
+	public JComboBox comboBox_player2color;
+	public JComboBox comboBox_player3color;
+	public JLabel label_player1;
+	public JLabel label_player2;
+	public JLabel label_player3;
+	public JLabel label_player4;
+	public JCheckBox checkbox_ai_player1;
+	public JCheckBox checkbox_ai_player2;
+	public JCheckBox checkbox_ai_player3;
+	public JCheckBox checkbox_ai_player4;
+	public JPanel panel_player1Inputs;
+	public JPanel panel_player2Inputs;
+	public JPanel panel_player3Inputs;
+	public JPanel panel_player4Inputs;
 	
 	// Timers
 	java.util.Timer timer_move = new Timer();
 	
-	public GameConfigScreen(UserInterfaceThread userInterfaceThread) {
-		this.userInterfaceThread = userInterfaceThread;
+	public GameConfigScreen() {
+		this.userInterfaceThread = Client.userInterfaceThread;
 		
 		setUIStyles();
 
@@ -47,18 +57,13 @@ public class GameConfigScreen {
 		slider_playerCount.addChangeListener(e -> {
 			JSlider slider = (JSlider) e.getSource();
 			int sliderValue = slider.getValue();
-			userInterfaceThread.client.localGame.properties.playerCount = sliderValue;
+			userInterfaceThread.client.localGame.setPlayerCount(sliderValue);
 			slider_playerCount.setValue(sliderValue);
 			
-			textField_player0Name.setVisible(sliderValue >= 1);
-			textField_player1Name.setVisible(sliderValue >= 2);
-			textField_player2Name.setVisible(sliderValue >= 3);
-			textField_player3Name.setVisible(sliderValue >= 4);
-			
-			comboBox_player0color.setVisible(sliderValue >= 1);
-			comboBox_player1color.setVisible(sliderValue >= 2);
-			comboBox_player2color.setVisible(sliderValue >= 3);
-			comboBox_player3color.setVisible(sliderValue >= 4);
+			panel_player1Inputs.setVisible(sliderValue >= 1);
+			panel_player2Inputs.setVisible(sliderValue >= 2);
+			panel_player3Inputs.setVisible(sliderValue >= 3);
+			panel_player4Inputs.setVisible(sliderValue >= 4);
 			
 			label_player1.setVisible(sliderValue >= 1);
 			label_player2.setVisible(sliderValue >= 2);
@@ -96,6 +101,47 @@ public class GameConfigScreen {
 		comboBox_player2color.addActionListener(colorActionListener);
 		comboBox_player3color.addActionListener(colorActionListener);*/
 		
+		// Set player properties
+		ActionListener playerActionListener = e -> {
+			if (userInterfaceThread.client.localGame.properties.playerCount >= 1) {
+				userInterfaceThread.client.localGame.players[0].colorIndex = comboBox_player0color.getSelectedIndex();
+				userInterfaceThread.client.localGame.players[0].name = !textField_player0Name.getText().equals("") ? textField_player0Name.getText() : "Unnamed 1";
+				userInterfaceThread.client.localGame.players[0].isAi = checkbox_ai_player1.isSelected();
+			}
+			if (userInterfaceThread.client.localGame.properties.playerCount >= 2) {
+				userInterfaceThread.client.localGame.players[1].colorIndex = comboBox_player1color.getSelectedIndex();
+				userInterfaceThread.client.localGame.players[1].name = !textField_player1Name.getText().equals("") ? textField_player1Name.getText() : "Unnamed 1";
+				userInterfaceThread.client.localGame.players[1].isAi = checkbox_ai_player2.isSelected();
+			}
+			if (userInterfaceThread.client.localGame.properties.playerCount >= 3) {
+				userInterfaceThread.client.localGame.players[2].colorIndex = comboBox_player2color.getSelectedIndex();
+				userInterfaceThread.client.localGame.players[2].name = !textField_player2Name.getText().equals("") ? textField_player2Name.getText() : "Unnamed 1";
+				userInterfaceThread.client.localGame.players[2].isAi = checkbox_ai_player3.isSelected();
+			}
+			if (userInterfaceThread.client.localGame.properties.playerCount >= 4) {
+				userInterfaceThread.client.localGame.players[3].colorIndex = comboBox_player3color.getSelectedIndex();
+				userInterfaceThread.client.localGame.players[3].name = !textField_player3Name.getText().equals("") ? textField_player3Name.getText() : "Unnamed 1";
+				userInterfaceThread.client.localGame.players[3].isAi = checkbox_ai_player4.isSelected();
+			}
+		};
+		
+		// set color
+		comboBox_player0color.addActionListener(playerActionListener);
+		comboBox_player1color.addActionListener(playerActionListener);
+		comboBox_player2color.addActionListener(playerActionListener);
+		comboBox_player3color.addActionListener(playerActionListener);
+		
+		// set name
+		textField_player0Name.addActionListener(playerActionListener);
+		textField_player1Name.addActionListener(playerActionListener);
+		textField_player2Name.addActionListener(playerActionListener);
+		textField_player3Name.addActionListener(playerActionListener);
+		
+		// set if AI
+		checkbox_ai_player1.addActionListener(playerActionListener);
+		checkbox_ai_player2.addActionListener(playerActionListener);
+		checkbox_ai_player3.addActionListener(playerActionListener);
+		checkbox_ai_player4.addActionListener(playerActionListener);
 		
 		// Move Time
 		spinner_moveTimeLimit.addChangeListener(e -> {
@@ -118,11 +164,7 @@ public class GameConfigScreen {
 			userInterfaceThread.setPanel(userInterfaceThread.chooseGameType.panel1);
 		});
 		startButton.addActionListener(e -> {
-			userInterfaceThread.client.localGame.initializeGame(userInterfaceThread.game,
-				comboBox_player0color.getSelectedIndex(),
-				comboBox_player1color.getSelectedIndex(),
-				comboBox_player2color.getSelectedIndex(),
-				comboBox_player3color.getSelectedIndex());
+			userInterfaceThread.client.localGame.initializeGame(userInterfaceThread.game);
 			userInterfaceThread.setPanel(userInterfaceThread.game.panel1);
 			
 			if (userInterfaceThread.client.localGame.properties.fullGameTimer != 0) {

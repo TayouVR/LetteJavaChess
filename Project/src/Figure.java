@@ -15,6 +15,7 @@ public class Figure {
 	public FigureType type;
 	public Direction direction;
 	public int associatedPlayerId;
+	public Field field;
 	
 	public boolean isFirstMove = true;
 	
@@ -29,12 +30,12 @@ public class Figure {
 	
 	/**
 	 * sets the fields to movable, that match the movement pattern of the figure
-	 * needs to be overriden by child classes
-	 * @param screen GameScreen ui class, that contains the entire game field
-	 * @param srcField tile, from which the moves should be calculated from
+	 * needs to be overridden by child classes
+	 * @return whether there are fields to move the figure to
 	 */
-	public void setMovableFields(GameScreen screen, Field srcField) {
-		System.out.println("No Specific Figure Targetted, No moves set");
+	public boolean setMovableFields() {
+		System.out.println("No Specific Figure Targeted, No moves set");
+		return false;
 	}
 	
 	/**
@@ -42,24 +43,27 @@ public class Figure {
 	 * @param directions fields in a line (one direction, e.g. X)
 	 * @param srcField tile, from which the moves should be calculated from
 	 */
-	public void setValidStraightLineFields(ArrayList<ArrayList<Field>> directions, Field srcField) {
+	public int setValidStraightLineFields(ArrayList<ArrayList<Field>> directions, Field srcField) {
+		int validMoveCount = 0;
 		for (int i = 0; i < directions.size(); i++) {
 			int blockedPos = 1000;
 			
 			// look for blocked field (x+y = distance)
 			for (Field field: directions.get(i)) {
-				if (field.getFigure() != null && Math.abs(field.x - srcField.x) + Math.abs(field.y - srcField.y) < blockedPos) {
-					blockedPos = Math.abs(field.x - srcField.x) + Math.abs(field.y - srcField.y);
+				if (field.getFigure() != null && Math.abs(field.pos.x - srcField.pos.x) + Math.abs(field.pos.y - srcField.pos.y) < blockedPos) {
+					blockedPos = Math.abs(field.pos.x - srcField.pos.x) + Math.abs(field.pos.y - srcField.pos.y);
 				}
 			}
 			
 			for (Field field: directions.get(i)) {
 				// all fields, which are before blocked field = MOVE
-				if (Math.abs(field.x - srcField.x) + Math.abs(field.y - srcField.y) < blockedPos) {
+				if (Math.abs(field.pos.x - srcField.pos.x) + Math.abs(field.pos.y - srcField.pos.y) < blockedPos) {
 					field.setValidMove(Field.Move.MOVE);
+					validMoveCount++;
 				// the field, that is blocked = ATTACK, but only if its not the own players unit
-				} else if (Math.abs(field.x - srcField.x) + Math.abs(field.y - srcField.y) == blockedPos && field.getFigure().direction != srcField.getFigure().direction) {
+				} else if (Math.abs(field.pos.x - srcField.pos.x) + Math.abs(field.pos.y - srcField.pos.y) == blockedPos && field.getFigure().direction != srcField.getFigure().direction) {
 					field.setValidMove(Field.Move.ATTACK);
+					validMoveCount++;
 				// else set field to DEFAULT
 				} else {
 					field.setValidMove(Field.Move.DEFAULT);
@@ -67,6 +71,7 @@ public class Figure {
 			}
 			
 		}
+		return validMoveCount;
 	}
 	
 	/**

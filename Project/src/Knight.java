@@ -8,19 +8,23 @@ public class Knight extends Figure {
 	}
 	
 	@Override
-	public void setMovableFields(GameScreen screen, Field srcField) {
-		for (Field[] fields: screen.felder) {
+	public boolean setMovableFields() {
+		int validMoveCount = 0;
+		Field srcField = field;
+		for (Field[] fields: UserInterfaceThread.game.felder) {
 			for (Field field: fields) {
 				if (field != null) {
 					
-					int rowDelta = Math.abs(field.x - srcField.x);
-					int colDelta = Math.abs(field.y - srcField.y);
+					int rowDelta = Math.abs(field.pos.x - srcField.pos.x);
+					int colDelta = Math.abs(field.pos.y - srcField.pos.y);
 					
 					if (((rowDelta == 1) && (colDelta == 2)) || ((rowDelta == 2) && (colDelta == 1))) {
 						if (field.getFigure() == null) {
 							field.setValidMove(Field.Move.MOVE);
+							validMoveCount++;
 						} else if (field.getFigure().direction != direction) {
 							field.setValidMove(Field.Move.ATTACK);
+							validMoveCount++;
 						} else {
 							field.setValidMove(Field.Move.DEFAULT);
 						}
@@ -30,5 +34,6 @@ public class Knight extends Figure {
 				}
 			}
 		}
+		return validMoveCount != 0;
 	}
 }

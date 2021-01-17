@@ -10,11 +10,11 @@ public class UserInterfaceThread extends Thread {
 	
 	Client client;
 
-	JFrame window = new JFrame();
-	MainMenu mainMenu;
-	ChooseGameTypeScreen chooseGameType;
-	GameConfigScreen preGame;
-	GameScreen game;
+	public static JFrame window = new JFrame();
+	public static MainMenu mainMenu;
+	public static ChooseGameTypeScreen chooseGameType;
+	public static GameConfigScreen preGame;
+	public static GameScreen game;
 	
 	public UserInterfaceThread(Client client) {
 		this.client = client;
@@ -34,10 +34,10 @@ public class UserInterfaceThread extends Thread {
 		}
 		
 		// Create Panels for all Pages
-		chooseGameType = new ChooseGameTypeScreen(this);
-		preGame = new GameConfigScreen(this);
-		mainMenu = new MainMenu(this);
-		game = new GameScreen(this);
+		chooseGameType = new ChooseGameTypeScreen();
+		preGame = new GameConfigScreen();
+		mainMenu = new MainMenu();
+		game = new GameScreen();
 		
 		// Set Main menu panel
 		setPanel(mainMenu.panel1);
@@ -76,7 +76,7 @@ public class UserInterfaceThread extends Thread {
 	 * Set Panel as Content Pane
 	 * @param panel panel to set
 	 */
-	public void setPanel(JPanel panel) {
+	public static void setPanel(JPanel panel) {
 		window.setContentPane(panel);
 		window.revalidate();
 		window.repaint();

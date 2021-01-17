@@ -14,20 +14,21 @@ public class ChooseGameTypeScreen {
 	private JButton btn_hostMultiplayerGame;
 	private JButton btn_backToMainMenu;
 	
-	public ChooseGameTypeScreen(UserInterfaceThread userInterfaceThread) {
-		this.userInterfaceThread = userInterfaceThread;
+	public ChooseGameTypeScreen() {
+		this.userInterfaceThread = Client.userInterfaceThread;
 		
 		btn_localGame.addActionListener(e -> {
-			userInterfaceThread.client.startNewGame(true);
-			userInterfaceThread.client.localGame.properties.playerCount = 4;
-			userInterfaceThread.setPanel(userInterfaceThread.preGame.panel1);
+			Client.instance.startNewGame(true);
+			Client.instance.localGame.setPlayerCount(4);
+			UserInterfaceThread.setPanel(UserInterfaceThread.preGame.panel1);
 		});
-		//btn_joinMultiplayerGame.addActionListener(e -> new SettingsWindow(this));
+		btn_joinMultiplayerGame.setEnabled(false);
+		//btn_joinMultiplayerGame.addActionListener(e -> {});
 		btn_hostMultiplayerGame.addActionListener(e -> {
-			userInterfaceThread.client.startNewGame(true);
-			userInterfaceThread.client.localGame.properties.playerCount = 4;
-			userInterfaceThread.setPanel(userInterfaceThread.preGame.panel1);
+			Client.instance.startNewGame(true);
+			Client.instance.localGame.setPlayerCount(4);
+			UserInterfaceThread.setPanel(UserInterfaceThread.preGame.panel1);
 		});
-		btn_backToMainMenu.addActionListener(e -> userInterfaceThread.setPanel(userInterfaceThread.mainMenu.panel1));
+		btn_backToMainMenu.addActionListener(e -> UserInterfaceThread.setPanel(UserInterfaceThread.mainMenu.panel1));
 	}
 }
