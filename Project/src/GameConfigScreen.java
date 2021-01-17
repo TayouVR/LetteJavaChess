@@ -12,8 +12,6 @@ import java.util.TimerTask;
  */
 public class GameConfigScreen {
 	
-	UserInterfaceThread userInterfaceThread;
-	
 	// UI stuff
 	public JPanel panel1;
 	private JButton backButton;
@@ -49,7 +47,6 @@ public class GameConfigScreen {
 	java.util.Timer timer_move = new Timer();
 	
 	public GameConfigScreen() {
-		this.userInterfaceThread = Client.userInterfaceThread;
 		
 		setUIStyles();
 
@@ -57,7 +54,7 @@ public class GameConfigScreen {
 		slider_playerCount.addChangeListener(e -> {
 			JSlider slider = (JSlider) e.getSource();
 			int sliderValue = slider.getValue();
-			userInterfaceThread.client.localGame.setPlayerCount(sliderValue);
+			Client.instance.localGame.setPlayerCount(sliderValue);
 			slider_playerCount.setValue(sliderValue);
 			
 			panel_player1Inputs.setVisible(sliderValue >= 1);
@@ -102,26 +99,11 @@ public class GameConfigScreen {
 		comboBox_player3color.addActionListener(colorActionListener);*/
 		
 		// Set player properties
-		ActionListener playerActionListener = e -> {
-			if (userInterfaceThread.client.localGame.properties.playerCount >= 1) {
-				userInterfaceThread.client.localGame.players[0].colorIndex = comboBox_player0color.getSelectedIndex();
-				userInterfaceThread.client.localGame.players[0].name = !textField_player0Name.getText().equals("") ? textField_player0Name.getText() : "Unnamed 1";
-				userInterfaceThread.client.localGame.players[0].isAi = checkbox_ai_player1.isSelected();
-			}
-			if (userInterfaceThread.client.localGame.properties.playerCount >= 2) {
-				userInterfaceThread.client.localGame.players[1].colorIndex = comboBox_player1color.getSelectedIndex();
-				userInterfaceThread.client.localGame.players[1].name = !textField_player1Name.getText().equals("") ? textField_player1Name.getText() : "Unnamed 1";
-				userInterfaceThread.client.localGame.players[1].isAi = checkbox_ai_player2.isSelected();
-			}
-			if (userInterfaceThread.client.localGame.properties.playerCount >= 3) {
-				userInterfaceThread.client.localGame.players[2].colorIndex = comboBox_player2color.getSelectedIndex();
-				userInterfaceThread.client.localGame.players[2].name = !textField_player2Name.getText().equals("") ? textField_player2Name.getText() : "Unnamed 1";
-				userInterfaceThread.client.localGame.players[2].isAi = checkbox_ai_player3.isSelected();
-			}
-			if (userInterfaceThread.client.localGame.properties.playerCount >= 4) {
-				userInterfaceThread.client.localGame.players[3].colorIndex = comboBox_player3color.getSelectedIndex();
-				userInterfaceThread.client.localGame.players[3].name = !textField_player3Name.getText().equals("") ? textField_player3Name.getText() : "Unnamed 1";
-				userInterfaceThread.client.localGame.players[3].isAi = checkbox_ai_player4.isSelected();
+		ActionListener playerActionListener = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				enterPlayerData();
 			}
 		};
 		
@@ -145,43 +127,69 @@ public class GameConfigScreen {
 		
 		// Move Time
 		spinner_moveTimeLimit.addChangeListener(e -> {
-			userInterfaceThread.client.localGame.properties.perMoveTimer = (int)spinner_moveTimeLimit.getValue();
+			Client.instance.localGame.properties.perMoveTimer = (int)spinner_moveTimeLimit.getValue();
 		});
 		
 		// Game Time
 		spinner_gameTimeLimit.addChangeListener(e -> {
-			userInterfaceThread.client.localGame.properties.fullGameTimer = (int)spinner_gameTimeLimit.getValue();
+			Client.instance.localGame.properties.fullGameTimer = (int)spinner_gameTimeLimit.getValue();
 		});
 
 		//Warning Time
 		spinner_gameTimeWarning.addChangeListener(e -> {
-				userInterfaceThread.client.localGame.properties.warningTimer = (int)spinner_gameTimeLimit.getValue();
+			Client.instance.localGame.properties.warningTimer = (int)spinner_gameTimeLimit.getValue();
 		});
 
 
 		// Buttons
 		backButton.addActionListener(e -> {
-			userInterfaceThread.setPanel(userInterfaceThread.chooseGameType.panel1);
+			UserInterfaceThread.setPanel(UserInterfaceThread.chooseGameType.panel1);
 		});
 		startButton.addActionListener(e -> {
-			userInterfaceThread.client.localGame.initializeGame(userInterfaceThread.game);
-			userInterfaceThread.setPanel(userInterfaceThread.game.panel1);
+			enterPlayerData();
 			
-			if (userInterfaceThread.client.localGame.properties.fullGameTimer != 0) {
+			Client.instance.localGame.initializeGame(UserInterfaceThread.game);
+			UserInterfaceThread.setPanel(UserInterfaceThread.game.panel1);
+			
+			if (Client.instance.localGame.properties.fullGameTimer != 0) {
 				runGameTimer();
 			} else {
-				userInterfaceThread.game.gameTimer.setText("No Time Limit");
+				UserInterfaceThread.game.gameTimer.setText("No Time Limit");
 			}
 
-			if (userInterfaceThread.client.localGame.properties.perMoveTimer != 0) {
+			if (Client.instance.localGame.properties.perMoveTimer != 0) {
 				runMoveTimer();
 			} else {
-				userInterfaceThread.game.turnTimer.setText("No Move Time Limit");
+				UserInterfaceThread.game.turnTimer.setText("No Move Time Limit");
 			}
 
 		});
 
 
+	}
+	
+	
+	public void enterPlayerData() {
+		if (Client.instance.localGame.properties.playerCount >= 1) {
+			Client.instance.localGame.players[0].colorIndex = comboBox_player0color.getSelectedIndex();
+			Client.instance.localGame.players[0].name = !textField_player0Name.getText().equals("") ? textField_player0Name.getText() : "Unnamed 1";
+			Client.instance.localGame.players[0].isAi = checkbox_ai_player1.isSelected();
+		}
+		if (Client.instance.localGame.properties.playerCount >= 2) {
+			Client.instance.localGame.players[1].colorIndex = comboBox_player1color.getSelectedIndex();
+			Client.instance.localGame.players[1].name = !textField_player1Name.getText().equals("") ? textField_player1Name.getText() : "Unnamed 2";
+			Client.instance.localGame.players[1].isAi = checkbox_ai_player2.isSelected();
+		}
+		if (Client.instance.localGame.properties.playerCount >= 3) {
+			Client.instance.localGame.players[2].colorIndex = comboBox_player2color.getSelectedIndex();
+			Client.instance.localGame.players[2].name = !textField_player2Name.getText().equals("") ? textField_player2Name.getText() : "Unnamed 3";
+			Client.instance.localGame.players[2].isAi = checkbox_ai_player3.isSelected();
+		}
+		if (Client.instance.localGame.properties.playerCount >= 4) {
+			Client.instance.localGame.players[3].colorIndex = comboBox_player3color.getSelectedIndex();
+			Client.instance.localGame.players[3].name = !textField_player3Name.getText().equals("") ? textField_player3Name.getText() : "Unnamed 4";
+			Client.instance.localGame.players[3].isAi = checkbox_ai_player4.isSelected();
+		}
 	}
 	
 	/**
@@ -212,7 +220,7 @@ public class GameConfigScreen {
 	 * Run the move timer
 	 */
 	public void runMoveTimer() {
-		userInterfaceThread.game.turnTimer.setText("Time left:" + userInterfaceThread.client.localGame.properties.perMoveTimer);
+		UserInterfaceThread.game.turnTimer.setText("Time left:" + Client.instance.localGame.properties.perMoveTimer);
 		try	{
 			timer_move.cancel();
 			timer_move.purge();
@@ -220,17 +228,17 @@ public class GameConfigScreen {
 			System.out.println("Move timer couldn't be cancelled and purged");
 		}
 		timer_move.scheduleAtFixedRate(new TimerTask() {
-			int seconds = userInterfaceThread.client.localGame.properties.perMoveTimer;
+			int seconds = Client.instance.localGame.properties.perMoveTimer;
 			@Override
 			public void run() {
 				seconds--;
-				userInterfaceThread.game.turnTimer.setText("Time left:" + seconds);
+				UserInterfaceThread.game.turnTimer.setText("Time left:" + seconds);
 				if (seconds <= (int)spinner_moveTimeWarning.getValue()) {
-					userInterfaceThread.client.playCountdownSound((float)seconds / (int)spinner_gameTimeWarning.getValue());
+					Client.instance.playCountdownSound((float)seconds / (int)spinner_gameTimeWarning.getValue());
 				}
 				if(seconds <= 0){
-					userInterfaceThread.game.setAllFieldsDeselected();
-					userInterfaceThread.client.localGame.nextPlayerTurn();
+					UserInterfaceThread.game.setAllFieldsDeselected();
+					Client.instance.localGame.nextPlayerTurn();
 					runMoveTimer();
 				}
 			}
@@ -241,16 +249,16 @@ public class GameConfigScreen {
 	 * Run the game timer
 	 */
 	public void runGameTimer() {
-		userInterfaceThread.game.gameTimer.setText("Time left:" + userInterfaceThread.client.localGame.properties.fullGameTimer);
+		UserInterfaceThread.game.gameTimer.setText("Time left:" + Client.instance.localGame.properties.fullGameTimer);
 		java.util.Timer timer_game = new Timer();
 		timer_game.scheduleAtFixedRate(new TimerTask() {
-			int seconds = userInterfaceThread.client.localGame.properties.fullGameTimer;
+			int seconds = Client.instance.localGame.properties.fullGameTimer;
 			@Override
 			public void run() {
 				seconds--;
-				userInterfaceThread.game.gameTimer.setText("Time left:" + seconds);
+				UserInterfaceThread.game.gameTimer.setText("Time left:" + seconds);
 				if (seconds <= (int)spinner_gameTimeWarning.getValue()) {
-					userInterfaceThread.client.playCountdownSound((float)seconds / (int)spinner_gameTimeWarning.getValue());
+					Client.instance.playCountdownSound((float)seconds / (int)spinner_gameTimeWarning.getValue());
 				}
 				if(seconds <= 0){
 					timer_game.cancel();

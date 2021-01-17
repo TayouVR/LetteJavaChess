@@ -26,6 +26,7 @@ public class Player {
 		System.out.println("A automatic move will be attempted with a: " + randomFigure.type);
 		if (randomFigure.setMovableFields()) {
 			// logic here
+			UserInterfaceThread.game.setAllFieldsDeselected();
 		} else {
 			UserInterfaceThread.game.setAllFieldsDeselected();
 			doAutomaticMove();
