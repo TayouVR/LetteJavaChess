@@ -47,9 +47,9 @@ public class GameScreen {
 							 i > 2  && i < 11 ||
 					j > 2 && i > 10 && j < 11) {
 					if ((i + j) % 2 == 0) {
-						felder[i][j] = new Field(this, false);
+						felder[i][j] = new Field(false);
 					} else {
-						felder[i][j] = new Field(this, true);
+						felder[i][j] = new Field(true);
 					}
 					
 					felder[i][j].pos = new Vector2int(i, j);

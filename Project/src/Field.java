@@ -9,41 +9,49 @@ public class Field extends JButton {
     private Figure figure;
     
     public boolean isBlack;
-    private Move isValidMove;
     
-    private GameScreen gameScreen;
+    public Move getIsValidMove() {
+        return isValidMove;
+    }
+    
+    private Move isValidMove;
     
     /**
      * Constructor
-     * @param screen GameScreen which has the whole field
-     * @param isBlack wether field is black or white
+     * @param isBlack whether field is black or white
      */
-    public Field(GameScreen screen, boolean isBlack) {
+    public Field(boolean isBlack) {
         this.isBlack = isBlack;
         setBackground(isBlack ? new Color(100,100,100) : Color.WHITE);
-        gameScreen = screen;
         addActionListener(e -> {
             if (isValidMove == Move.DEFAULT) {
-                screen.setAllFieldsDeselected();
+                UserInterfaceThread.game.setAllFieldsDeselected();
             }
-            if (isValidMove == Move.MOVE || isValidMove == Move.ATTACK && gameScreen.selectedField != null) {
-                setFigure(gameScreen.selectedField.figure);
-                figure.field = this;
-                gameScreen.selectedField.figure.isFirstMove = false;
-                gameScreen.selectedField.setFigure(null);
-                for (Field[] fields: gameScreen.felder) {
-                    for (Field field: fields) {
-                        if (field != null) {
-                            field.setValidMove(Move.DEFAULT);
-                        }
-                    }
-                }
-                screen.setAllFieldsDeselected();
-                screen.userInterfaceThread.client.localGame.nextPlayerTurn();
-            } else if (figure != null && screen.userInterfaceThread.client.localGame.getCurrentPlayerTurn() == figure.associatedPlayerId) {
+            if (isValidMove == Move.MOVE || isValidMove == Move.ATTACK && UserInterfaceThread.game.selectedField != null) {
+                moveSelectedFigureHere();
+            } else if (figure != null && UserInterfaceThread.game.userInterfaceThread.client.localGame.getCurrentPlayerTurn() == figure.associatedPlayerId) {
                 select();
             }
         });
+    }
+    
+    public void moveSelectedFigureHere() {
+        setFigure(UserInterfaceThread.game.selectedField.figure);
+        if (figure != null) {
+            figure.field = this;
+        }
+        UserInterfaceThread.game.selectedField.figure.isFirstMove = false;
+        UserInterfaceThread.game.selectedField.setFigure(null);
+        for (Field[] fields: UserInterfaceThread.game.felder) {
+            for (Field field: fields) {
+                if (field != null) {
+                    field.setValidMove(Move.DEFAULT);
+                }
+            }
+        }
+        UserInterfaceThread.game.setAllFieldsDeselected();
+        UserInterfaceThread.game.userInterfaceThread.client.localGame.nextPlayerTurn();
+        
     }
     
     /**
@@ -53,8 +61,10 @@ public class Field extends JButton {
     public void setFigure(Figure figure) {
         if (figure != null) {
             this.figure = figure;
-            setIcon(figure.getSingleImage(gameScreen.playfieldSize/14 - 5));
+            this.figure.field = this;
+            setIcon(figure.getSingleImage(UserInterfaceThread.game.playfieldSize/14 - 5));
         } else {
+            Client.instance.localGame.players[this.figure.associatedPlayerId-1].figures.remove(this.figure);
             this.figure = null;
             setIcon(null);
         }
@@ -71,10 +81,10 @@ public class Field extends JButton {
     /**
      * Selects field
      */
-    public void select() {
-        gameScreen.selectedField = this;
+    public boolean select() {
+        UserInterfaceThread.game.selectedField = this;
         setBackground(isBlack ? new Color(32, 32, 163) : new Color(79, 79, 255));
-        figure.setMovableFields();
+        return figure.setMovableFields();
     }
     
     /**
