@@ -28,8 +28,8 @@ public class Game {
 			}
 		//}
 		if (players[currentPlayerTurn-1].isAi) {
+			System.out.println("player " + (currentPlayerTurn-1) + "s AI Turn");
 			players[currentPlayerTurn-1].doAutomaticMove();
-			nextPlayerTurn();
 		}
 	}
 

@@ -2,6 +2,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -16,6 +17,9 @@ public class Figure {
 	public Direction direction;
 	public int associatedPlayerId;
 	public Field field;
+	
+	private BufferedImage srcImage;
+	private ImageIcon icon;
 	
 	public boolean isFirstMove = true;
 	
@@ -101,12 +105,22 @@ public class Figure {
 	 * @return ImageIcon for figure
 	 */
 	public ImageIcon getSingleImage(int targetResolution) {
-		BufferedImage srcImage = getImage("chess_2.png");
-		int oneFigureSize = srcImage.getWidth()/6;
-		
-		srcImage = cropImage(srcImage, new Rectangle(oneFigureSize*type.getValue(), oneFigureSize*color, oneFigureSize, oneFigureSize));
-		
-		return new ImageIcon(srcImage.getScaledInstance(targetResolution, targetResolution, 1));
+		if (image != null) {
+			if (image.getWidth((img, infoflags, x, y, width, height) -> false) != targetResolution) {
+				icon =  new ImageIcon(srcImage.getScaledInstance(targetResolution, targetResolution, 1));
+				return icon;
+			} else {
+				return icon;
+			}
+		} else {
+			srcImage = getImage("chess_2.png");
+			int oneFigureSize = srcImage.getWidth()/6;
+			
+			srcImage = cropImage(srcImage, new Rectangle(oneFigureSize*type.getValue(), oneFigureSize*color, oneFigureSize, oneFigureSize));
+			
+			icon = new ImageIcon(srcImage.getScaledInstance(targetResolution, targetResolution, 1));
+			return icon;
+		}
 	}
 	
 	/**
