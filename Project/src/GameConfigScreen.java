@@ -222,7 +222,6 @@ public class GameConfigScreen {
 	public void runMoveTimer() {
 		UserInterfaceThread.game.turnTimer.setText("Time left:" + Client.instance.localGame.properties.perMoveTimer);
 		try	{
-			timer_move.cancel();
 			timer_move.purge();
 		} catch (Exception e) {
 			System.out.println("Move timer couldn't be cancelled and purged");
@@ -232,6 +231,9 @@ public class GameConfigScreen {
 			@Override
 			public void run() {
 				seconds--;
+				if (seconds < 0) {
+					return;
+				}
 				UserInterfaceThread.game.turnTimer.setText("Time left:" + seconds);
 				if (seconds <= (int)spinner_moveTimeWarning.getValue()) {
 					Client.instance.playCountdownSound((float)seconds / (int)spinner_gameTimeWarning.getValue());
